@@ -38,17 +38,17 @@ RUN echo "deb http://lib.stat.cmu.edu/R/CRAN/bin/linux/debian stretch-cran35/" >
 # install system dependencies
 #
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-RUN apt-get update -y --allow-unauthenticated 
+RUN apt-get update -y --allow-unauthenticated
 RUN apt-get upgrade -y
 RUN apt-get install build-essential pkg-config apt-utils gnupg2 curl -y
 # key for cran-backports (not working though)
 #
-RUN bash -c "apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF' 1>/key.out   2> /key.err"
+# RUN bash -c "apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF' 1>/key.out   2> /key.err"
 
 #RUN apt-get update --fix-missing -y
 RUN apt-get update -y
 
-RUN apt-get install -y aptitude 
+RUN apt-get install -y aptitude
 RUN aptitude install -y libterm-readline-zoid-perl nginx starman emacs gedit vim less sudo htop git dkms linux-headers-4.9.0-11-amd64 perl-doc ack-grep make xutils-dev nfs-common lynx xvfb ncbi-blast+ libmunge-dev libmunge2 munge slurm-wlm slurmctld slurmd libslurm-perl libssl-dev graphviz lsof imagemagick mrbayes muscle bowtie bowtie2 blast2 postfix mailutils libcupsimage2 postgresql libglib2.0-dev libglib2.0-bin screen apt-transport-https
 RUN aptitude install libgdal-dev libproj-dev libudunits2-dev -y
 
@@ -125,12 +125,20 @@ ENV R_LIBS_USER=/home/production/cxgn/R_libs
 #RUN rm /home/production/cxgn/sgn/static/s
 #RUN rm /home/production/cxgn/sgn/documents
 
+RUN bash /home/production/cxgn/sgn/js/install_node.sh
+
 #INSTALL OPENCV IMAGING LIBRARY
 RUN apt-get install -y python3-dev python-pip python3-pip python-numpy
 RUN apt-get install -y libgtk2.0-dev libgtk-3-0 libgtk-3-dev libavcodec-dev libavformat-dev libswscale-dev libhdf5-serial-dev libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libxvidcore-dev libatlas-base-dev gfortran libgdal-dev exiftool libzbar-dev cmake
 
-RUN pip3 install imutils numpy matplotlib pillow statistics PyExifTool pytz pysolar scikit-image packaging pyzbar pandas \
-    && pip3 install -U keras-tuner \
+RUN apt-get install -y python3-virtualenv \
+    && pip3 install virtualenv virtualenvwrapper \
+    && python3 -m virtualenv --python=/usr/bin/python3 /home/production/cv \
+    && . /home/production/cv/bin/activate \
+    && pip3 install imutils matplotlib pillow statistics PyExifTool pytz pysolar scikit-image packaging pyzbar pandas tensorflow "numpy<1.17" \
+    && pip3 install -U keras-tuner
+
+RUN . /home/production/cv/bin/activate \
     && cd /home/production/cxgn/opencv \
     && mkdir build \
     && cd /home/production/cxgn/opencv/build \
@@ -143,16 +151,20 @@ RUN pip3 install imutils numpy matplotlib pillow statistics PyExifTool pytz pyso
         -D BUILD_EXAMPLES=OFF \
         -D OPENCV_ENABLE_NONFREE=ON \
         -D OPENCV_GENERATE_PKGCONFIG=YES .. \
-    && make \
+    && make -j 4 \
     && make install \
     && ldconfig
-RUN mv /usr/local/lib/python3.5/dist-packages/cv2/python-3.5/cv2.cpython-35m-x86_64-linux-gnu.so /usr/local/lib/python3.5/dist-packages/cv2/python-3.5/cv2.so
+
+RUN mv /usr/local/lib/python3.5/site-packages/cv2/python-3.5/cv2.cpython-35m-x86_64-linux-gnu.so /usr/local/lib/python3.5/site-packages/cv2/python-3.5/cv2.so \
+    && ln -s /usr/local/lib/python3.5/site-packages/cv2/python-3.5/cv2.so /home/production/cv/lib/python3.5/site-packages/cv2.so
 
 RUN g++ /home/production/cxgn/DroneImageScripts/cpp/stitching_multi.cpp -o /usr/bin/stitching_multi `pkg-config opencv4 --cflags --libs` \
     && g++ /home/production/cxgn/DroneImageScripts/cpp/stitching_single.cpp -o /usr/bin/stitching_single `pkg-config opencv4 --cflags --libs`
 
-RUN pip3 install tensorflow "numpy<1.17" scipy cython h5py imgaug IPython[all] "six>=1.15.0" 
-RUN git clone https://github.com/matterport/Mask_RCNN.git \
+RUN python3 -m virtualenv --python=/usr/bin/python3 /home/production/mrcnn \
+    && . /home/production/mrcnn/bin/activate \
+    && pip3 install tensorflow==1.5.0 "numpy<1.17" scipy cython h5py imgaug IPython[all] "six>=1.15.0" \
+    && git clone https://github.com/matterport/Mask_RCNN.git \
     && cd Mask_RCNN \
     && pip3 install -r requirements.txt \
     && pip3 install "setuptools>=46.4.0" \
@@ -165,8 +177,6 @@ RUN git clone https://github.com/matterport/Mask_RCNN.git \
 #self.keras_model.add_metric(loss, name) # <- Add
 #--------------------------------------
 #sudo python3 setup.py install # <- mask_rcnn-2.1-py3.6.egg is automaticalliy replaced
-
-RUN bash /home/production/cxgn/sgn/js/install_node.sh
 
 COPY entrypoint.sh /entrypoint.sh
 RUN ln -s /home/production/cxgn/starmachine/bin/starmachine_init.d /etc/init.d/sgn
