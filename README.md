@@ -1,5 +1,6 @@
-# breedbase_dockerfile
-The Dockerfile for [breeDBase](https://github.com/solgenomics/sgn)
+# Nick's Breedbase Dockerfile
+
+Nick's version of the Dockerfile for [breeDBase](https://github.com/solgenomics/sgn)
 
 ## Prereqs
 
@@ -35,20 +36,6 @@ apt-get install docker-ce
 
 ## Helpful commands:
 
-- Stopping the service
-
-    This will stop all containers (both web and db), but will not remove the containers.
-    ```bash
-    docker-compose stop breedbase
-    ```
-
-- Starting a stopped service
-
-    This will start all containers (both web and db) that were previously created, but have been stopped
-    ```bash
-    docker-compose start breedbase
-    ```
-
 - Stopping and removing the service
 
     This will stop all containers (both web and db), AND will remove them. Note: You must be located in the directory where the `docker-compose.yml` file is located.
@@ -80,24 +67,21 @@ apt-get install docker-ce
 
 # Manually building the image
 
-Alternatively, the docker image can be built using the Github `breedbase_dockerfile` repo, as explained below. This is recommended if you would like to develop based on the image.
+Alternatively, the docker image can be built from scratch. This is recommended if you would like to develop based on the image.
 
-### Clone the repo
+### Run the prepare.sh script
+
+- Chage directory into the directory containing the `Dockerfile`.
 
 ```bash
-git clone https://github.com/solgenomics/breedbase_dockerfile
-```
-
-### Run the prepare.sh script from within the breedbase_dockerfile dir
-
-```
-cd breedbase_dockerfile
 ./prepare.sh
 ```
+
 This will clone all the git repos that are needed for the build into a directory called `repos/`.
 You can then checkout particular branches or tags in the repo before the build.
 
 ### Build the image
+
 ```bash
-docker build -t breedbase_image breedbase_dockerfile
+docker build -t breedbase_image .
 ```
