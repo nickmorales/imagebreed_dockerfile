@@ -13,7 +13,7 @@ apt-get install docker-ce
 
 ### Breedbase Configuration
 
-- You need to write an `sgn_local.conf` file specific to your service. A [template](./sgn_local_docker.conf) is provided in the breedbase_dockerfile repo. To begin you don't need to change anything, but in actual production setting you will want to change the configuration.
+- To begin you don't need to change anything, but in actual production setting you will want to write an `sgn_local.conf` file specific to your service. A [template](./sgn_local_docker.conf) is provided in the breedbase_dockerfile repo.
 
 - Prepare the host by running the `prepare_host.sh` script. This ensures the persistent data directories mounted via the `docker-compose.yml` exist on your machine with the proper permissions.
 
@@ -64,6 +64,8 @@ apt-get install docker-ce
     ```
 
     Look at the error log using `tail -f /var/log/sgn/error.log` or `less /var/log/sgn/error.log`.
+
+- In the `docker-compose.yml` file you can mount the code directories you are developing, such as the sgn directory.
 
 # Manually building the image
 

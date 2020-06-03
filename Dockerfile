@@ -80,7 +80,7 @@ ADD repos /home/production/cxgn
 
 COPY slurm.conf /etc/slurm-llnl/slurm.conf
 
-COPY sgn_local.conf.template /home/production/cxgn/sgn/
+COPY sgn_local_docker.conf /home/production/cxgn/sgn/
 COPY starmachine.conf /etc/starmachine/
 COPY slurm.conf /etc/slurm-llnl/slurm.conf
 
@@ -164,7 +164,7 @@ RUN g++ /home/production/cxgn/DroneImageScripts/cpp/stitching_multi.cpp -o /usr/
 
 RUN python3 -m virtualenv --python=/usr/bin/python3 /home/production/mrcnn \
     && . /home/production/mrcnn/bin/activate \
-    && pip3 install tensorflow==1.5.0 "numpy<1.17" scipy cython h5py imgaug IPython[all] "six>=1.15.0" \
+    && pip3 install tensorflow==1.5.0 keras==2.1.5 "numpy<1.17" scipy cython h5py imgaug IPython[all] "six>=1.15.0" \
     && git clone https://github.com/matterport/Mask_RCNN.git \
     && cd Mask_RCNN \
     && pip3 install -r requirements.txt \
