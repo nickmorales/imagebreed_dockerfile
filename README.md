@@ -12,33 +12,26 @@ apt-get install docker-ce
 
 ### Breedbase Configuration
 
-You need to write an `sgn_local.conf` file specific to your service. A [template](./sgn_local_docker.conf) is provided in the breedbase_dockerfile repo.
+- You need to write an `sgn_local.conf` file specific to your service. A [template](./sgn_local_docker.conf) is provided in the breedbase_dockerfile repo. To begin you don't need to change anything, but in actual production setting you will want to change the configuration.
 
-To begin you don't need to change anything, but in actual production setting you will want to change the configuration.
+- Prepare the host by running the `prepare_host.sh` script. This ensures the persistent data directories mounted via the `docker-compose.yml` exist on your machine with the proper permissions.
 
-## Start the Service With `docker-compose`
-Docker compose allows you to configure one or more containers and their dependencies, and then use one command to start, stop, or remove all of the containers.
+## Start the Service
 
-- Install docker-compose
-
-    Debian/Ubuntu: https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-ubuntu-18-04
-
-- Download the Breedbase `docker-compose.yml` file
-
-    [docker-compose.yml](./docker-compose.yml)
-
-
-- Starting the service
-
-    Change directories to where the `docker-compose.yml` file is located
+- Change directories to where the `docker-compose.yml` file is located
 
     ```bash
     docker-compose up -d breedbase
     ```
 
-- Access the application
+- Access the Application
 
     Once the container is running, you can access the application at http://localhost:7080
+
+- Easy Logging In
+
+    The database is named `empty_fixture` and is loaded with SQL from [SGN](https://github.com/solgenomics/sgn/blob/master/t/data/fixture/empty_fixture.sql).
+    The database has a user named 'janedoe' with password 'secretpw' for easy logging in.
 
 ## Helpful commands:
 
@@ -90,11 +83,13 @@ Docker compose allows you to configure one or more containers and their dependen
 Alternatively, the docker image can be built using the Github `breedbase_dockerfile` repo, as explained below. This is recommended if you would like to develop based on the image.
 
 ### Clone the repo
+
 ```bash
 git clone https://github.com/solgenomics/breedbase_dockerfile
 ```
 
 ### Run the prepare.sh script from within the breedbase_dockerfile dir
+
 ```
 cd breedbase_dockerfile
 ./prepare.sh
