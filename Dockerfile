@@ -49,8 +49,13 @@ RUN apt-get install build-essential pkg-config apt-utils gnupg2 curl -y
 RUN apt-get update -y
 
 RUN apt-get install -y aptitude
-RUN aptitude install -y libterm-readline-zoid-perl nginx starman emacs gedit vim less sudo htop git dkms linux-headers-4.9.0-11-amd64 perl-doc ack-grep make xutils-dev nfs-common lynx xvfb ncbi-blast+ libmunge-dev libmunge2 munge slurm-wlm slurmctld slurmd libslurm-perl libssl-dev graphviz lsof imagemagick mrbayes muscle bowtie bowtie2 blast2 postfix mailutils libcupsimage2 postgresql libglib2.0-dev libglib2.0-bin screen apt-transport-https
+RUN aptitude install -y libterm-readline-zoid-perl nginx starman emacs gedit vim less sudo htop git dkms linux-headers-4.9.0-11-amd64 perl-doc ack-grep make xutils-dev nfs-common lynx xvfb ncbi-blast+ libmunge-dev libmunge2 munge slurm-wlm slurmctld slurmd libslurm-perl libssl-dev graphviz lsof imagemagick mrbayes muscle bowtie bowtie2 blast2 postfix mailutils libcupsimage2 postgresql libglib2.0-dev libglib2.0-bin screen apt-transport-https wget
 RUN aptitude install libgdal-dev libproj-dev libudunits2-dev -y
+
+RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add - \
+    && echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list \
+    && apt-get update \
+    && apt-get -y install postgresql-12 postgresql-client-12
 
 RUN curl -L https://cpanmin.us | perl - --sudo App::cpanminus
 
@@ -162,14 +167,14 @@ RUN mv /usr/local/lib/python3.5/site-packages/cv2/python-3.5/cv2.cpython-35m-x86
 RUN g++ /home/production/cxgn/DroneImageScripts/cpp/stitching_multi.cpp -o /usr/bin/stitching_multi `pkg-config opencv4 --cflags --libs` \
     && g++ /home/production/cxgn/DroneImageScripts/cpp/stitching_single.cpp -o /usr/bin/stitching_single `pkg-config opencv4 --cflags --libs`
 
-RUN python3 -m virtualenv --python=/usr/bin/python3 /home/production/mrcnn \
-    && . /home/production/mrcnn/bin/activate \
-    && pip3 install tensorflow==1.5.0 keras==2.1.5 "numpy<1.17" scipy cython h5py imgaug IPython[all] "six>=1.15.0" \
-    && git clone https://github.com/matterport/Mask_RCNN.git \
-    && cd Mask_RCNN \
-    && pip3 install -r requirements.txt \
-    && pip3 install "setuptools>=46.4.0" \
-    && python3 setup.py install
+#RUN python3 -m virtualenv --python=/usr/bin/python3 /home/production/mrcnn \
+#    && . /home/production/mrcnn/bin/activate \
+#    && pip3 install tensorflow==1.5.0 keras==2.1.5 "numpy<1.17" scipy matplotlib scikit-image Pillow cython h5py imgaug IPython[all] "six>=1.15.0" \
+#    && git clone https://github.com/matterport/Mask_RCNN.git \
+#    && cd Mask_RCNN \
+#    #&& pip3 install -r requirements.txt \
+#    && pip3 install "setuptools>=46.4.0" \
+#    && python3 setup.py install
 
 #macs mrcnn/model.py # Edit model.py
 #--------------------------------------
