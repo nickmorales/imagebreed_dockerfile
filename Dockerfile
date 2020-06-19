@@ -141,7 +141,7 @@ RUN apt-get install -y python3-virtualenv \
     && pip3 install virtualenv virtualenvwrapper \
     && python3 -m virtualenv --python=/usr/bin/python3 /home/production/cv \
     && . /home/production/cv/bin/activate \
-    && pip3 install imutils matplotlib pillow statistics PyExifTool pytz pysolar scikit-image packaging pyzbar pandas tensorflow "numpy<1.17" \
+    && pip3 install imutils matplotlib pillow statistics PyExifTool pytz pysolar scikit-image scikit-learn packaging pyzbar pandas tensorflow "numpy<1.17" \
     && pip3 install -U keras-tuner
 
 RUN . /home/production/cv/bin/activate \
@@ -150,11 +150,11 @@ RUN . /home/production/cv/bin/activate \
     && cd /home/production/cxgn/opencv/build \
     && cmake -D CMAKE_BUILD_TYPE=RELEASE \
         -D CMAKE_INSTALL_PREFIX=/usr/local \
-        -D INSTALL_PYTHON_EXAMPLES=OFF \
+        -D INSTALL_PYTHON_EXAMPLES=ON \
         -D OPENCV_EXTRA_MODULES_PATH=/home/production/cxgn/opencv_contrib/modules \
         -D PYTHON3_EXECUTABLE=$(which python3) \
         -D PYTHON3_NUMPY_INCLUDE_DIRS=$(python3 -c "import numpy; print(numpy.get_include())") \
-        -D BUILD_EXAMPLES=OFF \
+        -D BUILD_EXAMPLES=ON \
         -D OPENCV_ENABLE_NONFREE=ON \
         -D OPENCV_GENERATE_PKGCONFIG=YES .. \
     && make -j 4 \
