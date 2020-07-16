@@ -21,12 +21,12 @@ services:
       - type: bind
         source: ${HOME}/archive
         target: /home/production/archive
-      - type: bind
-        source: ${HOME}/tmp
-        target: /home/production/tmp
-      - type: bind
-        source: ${HOME}/cache
-        target: /home/production/cache
+    #  - type: bind
+    #    source: ${HOME}/tmp
+    #    target: /home/production/tmp
+    #  - type: bind
+    #    source: ${HOME}/cache
+    #    target: /home/production/cache
       - type: bind
         source: ${HOME}/cluster
         target: /home/production/cluster
