@@ -176,13 +176,10 @@ RUN g++ /home/production/cxgn/DroneImageScripts/cpp/stitching_multi.cpp -o /usr/
 #    && pip3 install "setuptools>=46.4.0" \
 #    && python3 setup.py install
 
-#macs mrcnn/model.py # Edit model.py
-#--------------------------------------
-#At line 2199
-# self.keras_model.metrics_tensors.append(loss) # <- comment out
-#self.keras_model.add_metric(loss, name) # <- Add
-#--------------------------------------
-#sudo python3 setup.py install # <- mask_rcnn-2.1-py3.6.egg is automaticalliy replaced
+# INSTALL REML F90 SUITE
+RUN wget -r -np -R "index.html*" http://nce.ads.uga.edu/html/projects/programs/Linux/64bit_AMD/ \
+    && chmod 777 nce.ads.uga.edu/html/projects/programs/Linux/64bit_AMD/* \
+    && scp nce.ads.uga.edu/html/projects/programs/Linux/64bit_AMD/* /usr/local/bin
 
 COPY entrypoint.sh /entrypoint.sh
 RUN ln -s /home/production/cxgn/starmachine/bin/starmachine_init.d /etc/init.d/sgn
