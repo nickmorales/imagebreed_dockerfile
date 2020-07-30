@@ -13,21 +13,25 @@ apt-get install docker-ce
 
 ### Breedbase Configuration
 
+- Git clone this repository onto a host machine with Docker and Docker-compose installed.
+
 - To begin you don't need to change anything, but in actual production setting you will want to write an `sgn_local.conf` file specific to your service. A [template](./sgn_local_docker.conf) is provided in the breedbase_dockerfile repo.
 
 - Prepare the host by running the `prepare_host.sh` script. This ensures the persistent data directories mounted via the `docker-compose.yml` exist on your machine with the proper permissions.
 
 ## Start the Service
 
-- Change directories to where the `docker-compose.yml` file is located
+- Change directories to where the `docker-compose.yml` file is located, then:
 
     ```bash
     docker-compose up -d breedbase
     ```
 
+- The Docker compose will fetch the container images from this [DockerHub](https://hub.docker.com/repository/docker/nmorales3142/nicksbreedbase).
+
 - Access the Application
 
-    Once the container is running, you can access the application at http://localhost:7080
+    Once the container is running, you can access the application from your host at http://localhost:7080
 
 - Easy Logging In
 
@@ -38,7 +42,7 @@ apt-get install docker-ce
 
 - Stopping and removing the service
 
-    This will stop all containers (both web and db), AND will remove them. Note: You must be located in the directory where the `docker-compose.yml` file is located.
+    This will stop all containers (both web and db). Note: You must be located in the directory where the `docker-compose.yml` file is located.
 
     ```bash
     docker-compose down
