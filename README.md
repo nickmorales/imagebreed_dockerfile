@@ -69,7 +69,11 @@ apt-get install docker-ce
 
     Look at the error log using `tail -f /var/log/sgn/error.log` or `less /var/log/sgn/error.log`.
 
-- In the `docker-compose.yml` file you can mount the code directories you are developing, such as the sgn directory.
+## Developing with this container
+
+- In the `docker-compose.yml` file you can mount the code directories you are developing, such as the sgn or other directories.
+
+- In the `docker-compose.yml` add in the environment section: `MODE=DEVELOPMENT`. This will restart the service whenever code changes are made to sgn or other core directories. Note, you may need to delete sgn/js/build and allow the application to rebuild this with the correct permissions.
 
 # Manually building the image
 
