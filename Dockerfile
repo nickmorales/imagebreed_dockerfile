@@ -77,6 +77,9 @@ COPY tools/gcta/gcta64  /usr/local/bin/
 COPY tools/quicktree /usr/local/bin/
 COPY tools/sreformat /usr/local/bin/
 
+# copy imagemagick policy with higher resource limits
+COPY imagemagick_policy.xml /etc/ImageMagick-6/policy.xml
+
 # copy code repos. Run the prepare.pl script to clone them
 # before the build
 # This also adds the Mason website skins
