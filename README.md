@@ -15,9 +15,9 @@ apt-get install docker-ce
 
 - Git clone this repository onto a host machine with Docker and Docker-compose installed.
 
-- To begin you don't need to change anything, but in actual production setting you will want to write an `sgn_local.conf` file specific to your service. A [template](./sgn_local_docker.conf) is provided in the breedbase_dockerfile repo.
+- IMPORTANT: to maintain persistent data directories mounted, use the bind mounts via the `docker-compose.yml` and ensure the directories exist on your machine with the proper permissions. Most critically, create the `${HOME}/archive`, `${HOME}/images`, `${HOME}/pgdata` directories on your host machine! The `prepare_host.sh` script can give guidance to permissions.
 
-- Prepare the host by running the `prepare_host.sh` script. This ensures the persistent data directories mounted via the `docker-compose.yml` exist on your machine with the proper permissions.
+- To begin you don't need to change anything, but in actual production setting you will want to write an `sgn_local.conf` file specific to your service. A [template](./sgn_local_docker.conf) is provided in the breedbase_dockerfile repo.
 
 ## Start the Service
 
@@ -71,7 +71,7 @@ apt-get install docker-ce
 
 ## Developing with this container
 
-- In the `docker-compose.yml` file you can mount the code directories you are developing, such as the sgn or other directories.
+- In the `docker-compose.yml` file you can mount the code directories you are developing, such as the sgn, DroneImageScripts, R_libs, perl-local-lib or other directories.
 
 - In the `docker-compose.yml` add in the environment section: `MODE=DEVELOPMENT`. This will restart the service whenever code changes are made to sgn or other core directories. Note, you may need to delete sgn/js/build and allow the application to rebuild this with the correct permissions.
 
