@@ -1,4 +1,4 @@
-# Nick's Breedbase Dockerfile
+# Nick's Breedbase Dockerfile v1.2 Now Released
 
 Nick's version of the Dockerfile for [breeDBase](https://github.com/solgenomics/sgn)
 
