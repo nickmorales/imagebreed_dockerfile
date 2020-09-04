@@ -86,6 +86,8 @@ COPY imagemagick_policy.xml /etc/ImageMagick-6/policy.xml
 #
 ADD repos /home/production/cxgn
 
+COPY sgn_local_docker.conf /home/production/cxgn/sgn/sgn_local.conf
+
 COPY slurm.conf /etc/slurm-llnl/slurm.conf
 
 COPY sgn_local_docker.conf /home/production/cxgn/sgn/
