@@ -30,6 +30,12 @@ Please check the [changelog](https://github.com/nickmorales/breedbase_dockerfile
 
     When starting the service, the database is named `empty_fixture` and is loaded with SQL from [SGN](https://github.com/solgenomics/sgn/blob/master/t/data/fixture/empty_fixture.sql).
 
+### Breedbase Configuration
+
+- TO BEGIN you don't need to change anything, but in actual production setting you will want to write an `sgn_local.conf` file specific to your service. A [template](./sgn_local_docker.conf) is provided in the breedbase_dockerfile repo. Your personal `sgn_local.conf` can be mounted in the `docker-compose.yml`, where a commented-out example is given.
+
+- IMPORTANT: to maintain persistent data directories mounted, use the bind mounts via the `docker-compose.yml` and ensure the directories exist on your machine with the proper permissions. Most critically, create the `${HOME}/archive`, `${HOME}/images`, `${HOME}/pgdata` directories on your host machine! The `prepare_host.sh` script can give guidance to permissions. Example commented-out bind mounts are given in the `docker-compose.yml`.
+
 ## Helpful commands:
 
 - Stopping and removing the service
