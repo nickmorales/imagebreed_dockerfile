@@ -49,15 +49,16 @@ Please check the [changelog](https://github.com/nickmorales/breedbase_dockerfile
 - To fully debug, log into the container. You can find the container id using
 
     ```bash
-    docker ps
-    ```
-
-    then
-    ```bash
-    docker exec -it <container_id> bash
+    docker exec -it breedbase_web bash
     ```
 
     Look at the error log using `tail -f /var/log/sgn/error.log` or `less /var/log/sgn/error.log`.
+
+- To login to the database container
+
+    ```bash
+    docker exec -it breedbase_db bash
+    ```
 
 ## Updating between versions of this Docker deployment
 
