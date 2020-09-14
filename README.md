@@ -14,6 +14,8 @@ Please check the [changelog](https://github.com/nickmorales/breedbase_dockerfile
     docker-compose up -d breedbase
     ```
 
+- Note, it may take up to 10 minutes for the service to start up the first time, as it must rebuild to Node javascript dependencies.
+
 - The Docker compose will fetch the container images from this [DockerHub](https://hub.docker.com/repository/docker/nmorales3142/nicksbreedbase).
 
 - Access the Application
