@@ -2,14 +2,9 @@
 
 Please check the [changelog](https://github.com/nickmorales/breedbase_dockerfile/wiki/Changelog) for update information.
 
-## Prereqs
+### Prereqs
 
-### Docker
-For installing on Debian/Ubuntu:
-
-```bash
-apt-get install docker-ce
-```
+- You need Docker and docker-compose installed on a machine with at least 8GB RAM and 50GB of disk.
 
 ### Breedbase Configuration
 
