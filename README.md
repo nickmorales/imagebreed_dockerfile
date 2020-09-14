@@ -33,8 +33,11 @@ apt-get install docker-ce
 
 - Easy Logging In
 
-    The database is named `empty_fixture` and is loaded with SQL from [SGN](https://github.com/solgenomics/sgn/blob/master/t/data/fixture/empty_fixture.sql).
-    The database has a user named 'janedoe' with password 'secretpw' for easy logging in.
+    The database has a user named 'janedoe' with password 'secretpw' for easy logging in from the web-interface.
+
+- Starting with an Empty Database
+
+    When starting the service, the database is named `empty_fixture` and is loaded with SQL from [SGN](https://github.com/solgenomics/sgn/blob/master/t/data/fixture/empty_fixture.sql).
 
 ## Helpful commands:
 
@@ -66,6 +69,14 @@ apt-get install docker-ce
     ```
 
     Look at the error log using `tail -f /var/log/sgn/error.log` or `less /var/log/sgn/error.log`.
+
+## Updating between versions of this Docker deployment
+
+- When updating between versions (e.g. v1.3 to v1.4), first check the [changelog](https://github.com/nickmorales/breedbase_dockerfile/wiki/Changelog).
+
+- Database patch changes require you to run the database patch onto your database. To do this, login to the running web docker using `docker exec -it breedbase_web bash`, then change directory to where the new database patch lives (e.g. `cd /home/production/cxgn/sgn/db/00129`), and finally run the patch onto your database using `mx-run NameOfPatch -H breedbase_db -D empty_fixture -u janedoe`. Notice, that the mx-run command uses NameOfPatch and not NameOfPatch.pm.
+
+- Ontology changes require you to load the new ontology terms into your database. To do this, login to the running web docker using `docker exec -it breedbase_web bash`, then load the new ontology using `perl /home/production/cxgn/Chado/chado/bin/gmod_load_cvterms.pl -H breedbase_db -D empty_fixture -s SGNSTAT -d Pg -r postgres -p postgres /home/production/cxgn/sgn/ontology/cxgn_statistics.obo`. Notice, the `-s` argument is for the database prefix of the ontology (e.g. SGNSTAT, CO_322, etc.) and the last argument is the file path to the pertinent ontology .obo file.
 
 ## Developing with this container
 
