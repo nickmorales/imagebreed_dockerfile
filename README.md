@@ -1,6 +1,6 @@
-# Nick's Breedbase Dockerfile v1.3 Now Released
+# Nick's Breedbase Dockerfile v1.4 Now Released
 
-Nick's version of the Dockerfile for [breeDBase](https://github.com/solgenomics/sgn)
+Please check the [changelog](https://github.com/nickmorales/breedbase_dockerfile/wiki/Changelog) for update information.
 
 ## Prereqs
 
