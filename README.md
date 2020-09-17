@@ -1,4 +1,4 @@
-# Nick's Breedbase Dockerfile v1.4 Now Released
+# Nick's Breedbase Dockerfile v1.5 Now Released
 
 Please check the [changelog](https://github.com/nickmorales/breedbase_dockerfile/wiki/Changelog) for update information.
 
@@ -11,7 +11,7 @@ Please check the [changelog](https://github.com/nickmorales/breedbase_dockerfile
 - To start the service, simply change directories to where the provided `docker-compose.yml` file is located (you can simply copy-paste the provided `docker-compose.yml` onto your own computer or you can git clone this repository), then:
 
     ```bash
-    docker-compose up -d breedbase
+    docker-compose up -d
     ```
 
 - Note, it may take up to 10 minutes for the service to start up the first time, as it must rebuild to Node javascript dependencies.
