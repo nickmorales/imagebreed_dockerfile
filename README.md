@@ -20,17 +20,11 @@ Please [support](https://patreon.com/nmorales) if you find this open-source soft
 
 - The Docker compose will fetch the container images from this [DockerHub](https://hub.docker.com/repository/docker/nmorales3142/nicksbreedbase).
 
-- Access the Application
+- Access the Application: Once the container is running, you can access the application from your host at http://localhost:7080
 
-    Once the container is running, you can access the application from your host at http://localhost:7080
+- Logging In: The database has a user named `janedoe` with password `secretpw` for easy logging in from the web-interface.
 
-- Easy Logging In
-
-    The database has a user named 'janedoe' with password 'secretpw' for easy logging in from the web-interface.
-
-- Starting with an Empty Database
-
-    When starting the service, the database is named `empty_fixture` and is loaded with SQL from [SGN](https://github.com/solgenomics/sgn/blob/master/t/data/fixture/empty_fixture.sql).
+- Starting with an Empty Database: When starting the service, the database is named `empty_fixture` and is loaded with SQL from [SGN](https://github.com/solgenomics/sgn/blob/master/t/data/fixture/empty_fixture.sql).
 
 ### Breedbase Configuration
 
@@ -56,7 +50,7 @@ Please [support](https://patreon.com/nmorales) if you find this open-source soft
     docker attach breedbase_web
     ```
 
-- To fully debug, log into the container. You can find the container id using
+- To fully debug, log into the breedbase_web container:
 
     ```bash
     docker exec -it breedbase_web bash
@@ -64,7 +58,7 @@ Please [support](https://patreon.com/nmorales) if you find this open-source soft
 
     Look at the error log using `tail -f /var/log/sgn/error.log` or `less /var/log/sgn/error.log`.
 
-- To login to the database container
+- To login to the database breedbase_db container:
 
     ```bash
     docker exec -it breedbase_db bash
@@ -76,7 +70,7 @@ Please [support](https://patreon.com/nmorales) if you find this open-source soft
 
 - Database patch changes require you to run the database patch onto your database. To do this, login to the running web docker using `docker exec -it breedbase_web bash`, then change directory to where the new database patch lives (e.g. `cd /home/production/cxgn/sgn/db/00129`), and finally run the patch onto your database using `mx-run NameOfPatch -H breedbase_db -D empty_fixture -u janedoe`. Notice, that the mx-run command uses NameOfPatch and not NameOfPatch.pm.
 
-- Ontology changes require you to load the new ontology terms into your database. To do this, login to the running web docker using `docker exec -it breedbase_web bash`, then load the new ontology using `perl /home/production/cxgn/Chado/chado/bin/gmod_load_cvterms.pl -H breedbase_db -D empty_fixture -s SGNSTAT -d Pg -r postgres -p postgres /home/production/cxgn/sgn/ontology/cxgn_statistics.obo`. Notice, the `-s` argument is for the database prefix of the ontology (e.g. SGNSTAT, CO_322, etc.) and the last argument is the file path to the pertinent ontology .obo file.
+- Ontology changes require you to load the new ontology terms into your database. To do this, login to the running web docker using `docker exec -it breedbase_web bash`, then load the new ontology using `perl /home/production/cxgn/Chado/chado/bin/gmod_load_cvterms.pl -H breedbase_db -D empty_fixture -s SGNSTAT -d Pg -r postgres -p postgres /home/production/cxgn/sgn/ontology/cxgn_statistics.obo`. Notice, the `-s` argument is for the database prefix of the pertinent ontology (e.g. SGNSTAT, CO_322, etc.) and the last argument is the file path to the pertinent ontology .obo file.
 
 ## Developing with this container
 
