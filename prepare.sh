@@ -22,6 +22,7 @@ git clone https://github.com/GMOD/Bio-Chado-Schema repos/Bio-Chado-Schema
 git clone https://github.com/solgenomics/DroneImageScripts.git repos/DroneImageScripts
 git clone --branch 4.1.0 --depth 1 https://github.com/opencv/opencv repos/opencv
 git clone --branch 4.1.0 --depth 1 https://github.com/opencv/opencv_contrib repos/opencv_contrib
+git clone https://bitbucket.org/tasseladmin/tassel-5-standalone.git
 
 # local libs
 git clone https://github.com/solgenomics/perl-local-lib repos/local-lib
