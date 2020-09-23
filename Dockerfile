@@ -37,7 +37,7 @@ RUN apt-get install -y aptitude
 RUN aptitude install -y libterm-readline-zoid-perl nginx starman emacs gedit vim less sudo htop git dkms perl-doc ack-grep make xutils-dev nfs-common lynx xvfb ncbi-blast+ libmunge-dev libmunge2 munge slurm-wlm slurmctld slurmd libslurm-perl libssl-dev graphviz lsof imagemagick mrbayes muscle bowtie bowtie2 blast2 postfix mailutils libcupsimage2 libglib2.0-dev libglib2.0-bin screen apt-transport-https wget
 
 # required for R-package spdep, and other dependencies of agricolae
-RUN aptitude install libgdal-dev libproj-dev libudunits2-dev -y
+RUN aptitude install libgdal-dev libproj-dev libudunits2-dev dirmngr software-properties-common -y
 
 RUN aptitude install default-jre -y
 
@@ -55,7 +55,10 @@ RUN chmod 777 /var/spool/ \
     && /usr/sbin/create-munge-key \
     && ln -s /var/lib/slurm-llnl /var/lib/slurm
 
-RUN aptitude install r-base r-base-dev libopenblas-base -y
+RUN apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF' \
+    && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/debian stretch-cran35/' \
+    && sudo aptitude update -y \
+    && aptitude install r-base r-base-dev libopenblas-base -y
 
 # copy some tools that don't have a Debian package
 COPY tools/gcta/gcta64  /usr/local/bin/
@@ -67,6 +70,8 @@ COPY imagemagick_policy.xml /etc/ImageMagick-6/policy.xml
 
 # copy code repos. Run the prepare.pl script to clone them before the build
 ADD repos /home/production/cxgn
+
+WORKDIR /home/production/cxgn/sgn
 
 COPY sgn_local_docker.conf /home/production/cxgn/sgn/sgn_local.conf
 COPY slurm.conf /etc/slurm-llnl/slurm.conf
