@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   breedbase:
-    image: nmorales3142/nicksbreedbase:1.6
+    image: nmorales3142/nicksbreedbase:1.5
     depends_on:
       - breedbase_db
     container_name: breedbase_web
@@ -55,7 +55,7 @@ services:
     #    source: ${HOME}/images
     #    target: /home/production/public/images
   breedbase_db:
-    image: nmorales3142/nicksbreedbasepostgres:1.6
+    image: nmorales3142/nicksbreedbasepostgres:1.5
     container_name: breedbase_db
     #volumes:
     #  - type: bind
