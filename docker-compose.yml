@@ -19,7 +19,7 @@ services:
     #  - DATABASE_OPERATOR=janedoe
     #volumes:
     #  - type: bind
-    #    source: ./sgn_local_docker.conf
+    #    source: ./development/sgn_local_docker.conf
     #    target: /home/production/cxgn/sgn/sgn_local.conf
     #  - type: bind
     #    source: ${HOME}/cxgn/sgn
