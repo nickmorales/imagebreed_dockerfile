@@ -1,4 +1,4 @@
-# Nick's Breedbase v1.6 Now Released
+# Nick's Breedbase v1.7 Now Released
 
 Please check the [changelog](https://github.com/nickmorales/breedbase_dockerfile/wiki/Changelog) for update information.
 
@@ -32,6 +32,8 @@ Please [support](https://patreon.com/nmorales) if you find this open-source soft
 
 - IMPORTANT: to maintain persistent data directories mounted, use the bind mounts via the `docker-compose.yml` and ensure the directories exist on your machine with the proper permissions. Most critically, create the `${HOME}/archive`, `${HOME}/images`, `${HOME}/pgdata` directories on your host machine! The `prepare_host.sh` script can give guidance to permissions. Example commented-out bind mounts are given in the `docker-compose.yml`.
 
+- When mounting persistent data directories and/or code directories in the `docker-compose.yml`, DO NOT alter the target, only alter the source to match your host configuration.
+
 ## Helpful commands:
 
 - Stopping and removing the service
@@ -42,7 +44,7 @@ Please [support](https://patreon.com/nmorales) if you find this open-source soft
     docker-compose down
     ```
 
-## Debugging a running container
+### Debugging a running container
 
 - To view the log on a running service:
 
@@ -78,7 +80,7 @@ Please [support](https://patreon.com/nmorales) if you find this open-source soft
 
 - In the `docker-compose.yml` add in the environment section: `MODE=DEVELOPMENT`. This will restart the service whenever code changes are made to sgn or other core directories. Note, you may need to delete sgn/js/build and allow the application to rebuild this with the correct permissions.
 
-# Manually building the image
+## Manually building the image
 
 Alternatively, the docker image can be built from scratch. This is recommended if you would like to develop based on the image.
 

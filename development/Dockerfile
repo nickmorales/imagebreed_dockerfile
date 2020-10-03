@@ -42,7 +42,7 @@ RUN aptitude install libgdal-dev libproj-dev libudunits2-dev dirmngr software-pr
 RUN aptitude install default-jre -y
 
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add - \
-    && echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" |sudo tee  /etc/apt/sources.list.d/pgdg.list \
+    && echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list \
     && aptitude update -y \
     && apt-get upgrade -y \
     && aptitude -y install postgresql-12 postgresql-client-12
