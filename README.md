@@ -2,8 +2,6 @@
 
 Please check the [changelog](https://github.com/nickmorales/breedbase_dockerfile/wiki/Changelog) for update information.
 
-Please [support](https://patreon.com/nmorales) if you find this open-source software useful!
-
 ### Prerequisites
 
 - You need Docker and docker-compose installed on a machine with at least 8GB RAM and 50GB of disk.
