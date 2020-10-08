@@ -26,7 +26,6 @@ RUN mkdir -p /home/production/public/sgn_static_content \
 
 WORKDIR /home/production/cxgn
 
-# install system dependencies
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
     && apt-get update -y --allow-unauthenticated \
     && apt-get upgrade -y \
@@ -36,11 +35,12 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 RUN apt-get install -y aptitude
 RUN aptitude install -y libterm-readline-zoid-perl nginx starman emacs gedit vim less sudo htop git dkms perl-doc ack-grep make xutils-dev nfs-common lynx xvfb ncbi-blast+ libmunge-dev libmunge2 munge slurm-wlm slurmctld slurmd libslurm-perl libssl-dev graphviz lsof imagemagick mrbayes muscle bowtie bowtie2 blast2 postfix mailutils libcupsimage2 libglib2.0-dev libglib2.0-bin screen apt-transport-https wget
 
-# required for R-package spdep, and other dependencies of agricolae
-RUN aptitude install libgdal-dev libproj-dev libudunits2-dev dirmngr software-properties-common -y
+# Required for R-package spdep, and other dependencies of agricolae
+# Java for Tassel
+RUN aptitude install libgdal-dev libproj-dev libudunits2-dev dirmngr software-properties-common -y \
+    && aptitude install default-jre -y
 
-RUN aptitude install default-jre -y
-
+# Postgres 12
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add - \
     && echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list \
     && aptitude update -y \
@@ -55,20 +55,21 @@ RUN chmod 777 /var/spool/ \
     && /usr/sbin/create-munge-key \
     && ln -s /var/lib/slurm-llnl /var/lib/slurm
 
+# R 3.6.3
 RUN apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF' \
     && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/debian stretch-cran35/' \
     && sudo aptitude update -y \
     && aptitude install r-base r-base-dev libopenblas-base -y
 
-# copy some tools that don't have a Debian package
+# Copy some tools that don't have a Debian package
 COPY tools/gcta/gcta64  /usr/local/bin/
 COPY tools/quicktree /usr/local/bin/
 COPY tools/sreformat /usr/local/bin/
 
-# copy imagemagick policy with higher resource limits
+# Copy imagemagick policy with higher resource limits
 COPY imagemagick_policy.xml /etc/ImageMagick-6/policy.xml
 
-# copy code repos. Run the prepare.pl script to clone them before the build
+# Copy code repos. Run the prepare.pl script to clone them before the build
 ADD repos /home/production/cxgn
 
 WORKDIR /home/production/cxgn/sgn
@@ -78,25 +79,20 @@ COPY slurm.conf /etc/slurm-llnl/slurm.conf
 COPY sgn_local_docker.conf /home/production/cxgn/sgn/
 COPY starmachine.conf /etc/starmachine/
 
-# XML::Simple dependency
-RUN aptitude install libexpat1-dev -y
+# XML::Simple dependency: libexpat1-dev
+# HTML::FormFu: libcatalyst-controller-html-formfu-perl
+# Cairo Perl module needs this: libcairo2-dev
+# GD Perl module needs this: libgd2-xpm-dev
+# postgres driver DBD::Pg needs this: libpq-dev
+# MooseX::Runnable Perl module needs this: libmoosex-runnable-perl
+RUN aptitude install libexpat1-dev -y \
+    && aptitude install libcatalyst-controller-html-formfu-perl -y \
+    && aptitude install libcairo2-dev -y \
+    && aptitude install libgd2-xpm-dev -y \
+    && aptitude install libpq-dev -y \
+    && aptitude install libmoosex-runnable-perl -y \
+    && aptitude install libgdbm3 libgdm-dev -y
 
-# HTML::FormFu
-RUN aptitude install libcatalyst-controller-html-formfu-perl -y
-
-# Cairo Perl module needs this:
-RUN aptitude install libcairo2-dev -y
-
-# GD Perl module needs this:
-RUN aptitude install libgd2-xpm-dev -y
-
-# postgres driver DBD::Pg needs this:
-RUN aptitude install libpq-dev -y
-
-# MooseX::Runnable Perl module needs this:
-RUN aptitude install libmoosex-runnable-perl -y
-
-RUN aptitude install libgdbm3 libgdm-dev -y
 RUN aptitude install nodejs -y
 
 ENV PERL5LIB=/home/production/cxgn/local-lib/:/home/production/cxgn/local-lib/lib/perl5:/home/production/cxgn/sgn/lib:/home/production/cxgn/cxgn-corelibs/lib:/home/production/cxgn/Phenome/lib:/home/production/cxgn/Cview/lib:/home/production/cxgn/ITAG/lib:/home/production/cxgn/biosource/lib:/home/production/cxgn/tomato_genome/lib:/home/production/cxgn/Chado/chado/lib:/home/production/cxgn/Bio-Chado-Schema/lib:.
