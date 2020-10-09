@@ -44,6 +44,8 @@ Please [support](https://patreon.com/nmorales) if you find this open-source soft
     docker-compose down
     ```
 
+- Docker-compose will not delete the downloaded Docker images. Use `docker images` to view the downloaded images and then use `docker rmi IMAGEID` to delete it. The Docker images are large and can take up large amounts of disk space, and should be deleted when not in use.
+
 ### Debugging a running container
 
 - To view the log on a running service:
