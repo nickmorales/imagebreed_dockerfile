@@ -36,9 +36,7 @@ Please [support](https://patreon.com/nmorales) if you find this open-source soft
 
 ## Helpful commands:
 
-- Stopping and removing the service
-
-    This will stop all containers (both web and db). Note: You must be located in the directory where the `docker-compose.yml` file is located.
+- Stopping the service: This will stop all containers (both web and db). Note: You must be located in the directory where the `docker-compose.yml` file is located.
 
     ```bash
     docker-compose down
@@ -76,6 +74,10 @@ Please [support](https://patreon.com/nmorales) if you find this open-source soft
 
 - Ontology changes require you to load the new ontology terms into your database. To do this, login to the running web docker using `docker exec -it breedbase_web bash`, then load the new ontology using `perl /home/production/cxgn/Chado/chado/bin/gmod_load_cvterms.pl -H breedbase_db -D empty_fixture -s SGNSTAT -d Pg -r postgres -p postgres /home/production/cxgn/sgn/ontology/cxgn_statistics.obo`. Notice, the `-s` argument is for the database prefix of the pertinent ontology (e.g. SGNSTAT, CO_322, etc.) and the last argument is the file path to the pertinent ontology .obo file.
 
+## Using a local PostgreSQL database
+
+- The provided `docker-compose.yml` will launch a `breedbase_web` and `breedbase_db` container. If you prefer to install PostgreSQL on your host machine and avoid using the `breedbase_db` Docker, you can comment out the associated breedbase_db lines in the `docker-compose.yml`. This requires adjusting your `sgn_local.conf` to point to your host database, and adjusting your `postgresql.conf` and `pg_hba.conf` configuration to work in this network configuration.
+
 ## Developing with this container
 
 - In the `docker-compose.yml` file you can mount the code directories you are developing, such as the sgn, DroneImageScripts, R_libs, perl-local-lib or other directories.
@@ -86,18 +88,14 @@ Please [support](https://patreon.com/nmorales) if you find this open-source soft
 
 Alternatively, the docker image can be built from scratch. This is recommended if you would like to develop based on the image.
 
-### Run the prepare.sh script
+#### Run the prepare.sh script
 
-- Chage directory into the directory containing the `Dockerfile`.
+- Chage directory into the directory containing the `Dockerfile` and run the `prepare.sh` script.
 
-```bash
-./prepare.sh
-```
-
-This will clone all the git repos that are needed for the build into a directory called `repos/`.
+- This will clone all the git repos that are needed for the build into a directory called `repos/`.
 You can then checkout particular branches or tags in the repo before the build.
 
-### Build the image
+#### Build the image
 
 ```bash
 docker build -t breedbase_image .
