@@ -76,7 +76,7 @@ Please [support](https://patreon.com/nmorales) if you find this open-source soft
 
 ## Using a local PostgreSQL database
 
-- The provided `docker-compose.yml` will launch a `breedbase_web` and `breedbase_db` container. If you prefer to install PostgreSQL on your host machine and avoid using the `breedbase_db` Docker, you can comment out the associated breedbase_db lines in the `docker-compose.yml`. This requires adjusting your `sgn_local.conf` to point to your host database, and adjusting your `postgresql.conf` and `pg_hba.conf` configuration to work in this network configuration.
+- The provided `docker-compose.yml` will launch a `breedbase_web` and `breedbase_db` container. If you prefer to install PostgreSQL on your host machine and avoid using the `breedbase_db` Docker, you can comment out the associated breedbase_db lines in the `docker-compose.yml`. This requires adjusting your `sgn_local.conf` to point to your host database, and adjusting your `postgresql.conf` and `pg_hba.conf` configuration to work in this network configuration. You can load SQL from [SGN](https://github.com/solgenomics/sgn/blob/master/t/data/fixture/empty_fixture.sql) as a starting point for your host database.
 
 ## Developing with this container
 
@@ -88,15 +88,6 @@ Please [support](https://patreon.com/nmorales) if you find this open-source soft
 
 Alternatively, the docker image can be built from scratch. This is recommended if you would like to develop based on the image.
 
-#### Run the prepare.sh script
+- Chage directory into the directory containing the `Dockerfile` and run the `prepare.sh` script. This will clone all the git repos that are needed for the build into a directory called `repos/`. You can then checkout particular branches or tags in the repo before the build.
 
-- Chage directory into the directory containing the `Dockerfile` and run the `prepare.sh` script.
-
-- This will clone all the git repos that are needed for the build into a directory called `repos/`.
-You can then checkout particular branches or tags in the repo before the build.
-
-#### Build the image
-
-```bash
-docker build -t breedbase_image .
-```
+- Build the images on your host with `docker build -t breedbase_image .`
