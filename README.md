@@ -2,6 +2,8 @@
 
 Please check the [changelog](https://github.com/nickmorales/breedbase_dockerfile/wiki/Changelog) for update information.
 
+This repository will be merged back into Solgenomics once the conflicts in the systems are resolved.
+
 Please [support](https://patreon.com/nmorales) if you find this open-source software useful!
 
 ### Prerequisites
