@@ -100,7 +100,6 @@ ENV PERL5LIB=/home/production/cxgn/local-lib/:/home/production/cxgn/local-lib/li
 ENV HOME=/home/production
 ENV PGPASSFILE=/home/production/.pgpass
 RUN echo "R_LIBS_USER=/home/production/cxgn/R_libs" >> /etc/R/Renviron
-RUN mkdir -p /home/production/cxgn/sgn/R_libs
 ENV R_LIBS_USER=/home/production/cxgn/R_libs
 
 RUN bash /home/production/cxgn/sgn/js/install_node.sh

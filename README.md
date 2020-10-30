@@ -1,4 +1,4 @@
-# Nick's Breedbase v1.10 Now Released
+# Nick's Breedbase v1.11 Now Released
 
 Please check the [changelog](https://github.com/nickmorales/breedbase_dockerfile/wiki/Changelog) for update information.
 

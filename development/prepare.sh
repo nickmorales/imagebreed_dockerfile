@@ -20,6 +20,7 @@ git clone https://github.com/GMOD/Chado repos/Chado
 git clone https://github.com/GMOD/chado_tools repos/chado_tools
 git clone https://github.com/GMOD/Bio-Chado-Schema repos/Bio-Chado-Schema
 git clone https://github.com/solgenomics/DroneImageScripts.git repos/DroneImageScripts
+git clone https://github.com/solgenomics/Tea.git repos/Tea
 git clone --branch 4.1.0 --depth 1 https://github.com/opencv/opencv repos/opencv
 git clone --branch 4.1.0 --depth 1 https://github.com/opencv/opencv_contrib repos/opencv_contrib
 git clone https://bitbucket.org/tasseladmin/tassel-5-standalone.git
@@ -40,6 +41,7 @@ git clone https://github.com/solgenomics/cassbase.git repos/cassbase
 git clone https://github.com/solgenomics/musabase.git repos/musabase
 git clone https://github.com/solgenomics/potatobase.git repos/potatobase
 git clone https://github.com/solgenomics/cea.git repos/cea
+git clone https://github.com/solgenomics/bea.git repos/bea
 git clone https://github.com/solgenomics/cippotatobase.git repos/cippotatobase
 git clone https://github.com/solgenomics/fernbase.git repos/fernbase
 git clone https://github.com/solgenomics/solgenomics.git repos/solgenomics
