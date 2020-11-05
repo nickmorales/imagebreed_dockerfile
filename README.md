@@ -1,5 +1,7 @@
 # ImageBreed v1.11 Now Released
 
+Launch your own instance of [ImageBreed](https://imagebreed.org) to manage your plant breeding field experiments and aerial image phenotyping!
+
 Please check the [changelog](https://github.com/nickmorales/breedbase_dockerfile/wiki/Changelog) for update information.
 
 This repository will be merged back into the [Solgenomics Breedbase](https://github.com/solgenomics/breedbase_dockerfile) once the conflicts in the systems are resolved.
