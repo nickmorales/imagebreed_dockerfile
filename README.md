@@ -12,13 +12,13 @@ This repository will be merged back into the [Solgenomics Breedbase](https://git
 
 ## Start the Service
 
-- To start the service, simply change directories to where the provided `docker-compose.yml` file is located (you can simply copy-paste the provided `docker-compose.yml` onto your own computer or you can git clone this repository), then:
+- To start the service, simply change directories to where the provided `docker-compose.yml` file is located (you can simply copy-paste the provided `docker-compose.yml` onto your own computer or you can `git clone` this repository), then:
 
     ```bash
     docker-compose up -d
     ```
 
-- Note, it may take up to 10 minutes for the service to fully start up the first time, as it must rebuild the Node javascript dependencies.
+- Note, it may take up to 10 minutes for the service to fully start up the first time, as it must rebuild the Node JavaScript dependencies.
 
 - The Docker compose will fetch the container images from this [DockerHub](https://hub.docker.com/repository/docker/nmorales3142/nicksbreedbase).
 
