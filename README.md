@@ -1,10 +1,8 @@
-# Breedbase v1.11 Now Released
+# ImageBreed v1.11 Now Released
 
 Please check the [changelog](https://github.com/nickmorales/breedbase_dockerfile/wiki/Changelog) for update information.
 
-This repository will be merged back into Solgenomics once the conflicts in the systems are resolved.
-
-Please [support](https://patreon.com/nmorales) if you find this open-source software useful!
+This repository will be merged back into the [Solgenomics Breedbase](https://github.com/solgenomics/breedbase_dockerfile) once the conflicts in the systems are resolved.
 
 ### Prerequisites
 
@@ -97,3 +95,5 @@ Alternatively, the docker image can be built from scratch. This is recommended i
 - Chage directory into the directory containing the `Dockerfile` and run the `prepare.sh` script. This will clone all the git repos that are needed for the build into a directory called `repos/`. You can then checkout particular branches or tags in the repo before the build.
 
 - Build the images on your host with `docker build -t breedbase_image .`
+
+### Please [support](https://patreon.com/nmorales) if you find this open-source software useful!
