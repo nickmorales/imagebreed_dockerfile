@@ -72,13 +72,13 @@ This repository will be merged back into the [Solgenomics Breedbase](https://git
 
 - When updating between versions (e.g. v1.3 to v1.4), first check the [changelog](https://github.com/nickmorales/breedbase_dockerfile/wiki/Changelog).
 
-- Database patch changes require you to run the database patch onto your database. To do this, login to the running web docker using `docker exec -it breedbase_web bash`, then change directory to where the new database patch lives (e.g. `cd /home/production/cxgn/sgn/db/00129`), and finally run the patch onto your database using `mx-run NameOfPatch -H breedbase_db -D empty_fixture -u janedoe`. Notice, that the mx-run command uses NameOfPatch and not NameOfPatch.pm.
+- Database patch changes require you to run the database patch onto your database. Database patches can take long to complete, and so you should run them in a screen session. To do this, enter a screen session, then login to the running web docker using `docker exec -it breedbase_web bash`, then change directory to where the new database patch lives (e.g. `cd /home/production/cxgn/sgn/db/00129`), and finally run the patch onto your database using `mx-run NameOfPatch -H breedbase_db -D empty_fixture -u janedoe`. Notice, that the mx-run command uses NameOfPatch and not NameOfPatch.pm.
 
 - Ontology changes require you to load the new ontology terms into your database. To do this, login to the running web docker using `docker exec -it breedbase_web bash`, then load the new ontology using `perl /home/production/cxgn/Chado/chado/bin/gmod_load_cvterms.pl -H breedbase_db -D empty_fixture -s SGNSTAT -d Pg -r postgres -p postgres /home/production/cxgn/sgn/ontology/cxgn_statistics.obo`. Notice, the `-s` argument is for the database prefix of the pertinent ontology (e.g. SGNSTAT, CO_322, etc.) and the last argument is the file path to the pertinent ontology .obo file.
 
 - If you are updating across several versions (e.g. v1.3 to 1.7) and an ontology is updated in several of those versions (e.g. in v1.4 and v1.5), you only need to load the pertinent ontology once.
 
-- If you are updating across several versions (e.g. v1.3 to 1.7) and there are many database patches to run, you can use the `run_all_patches.pl`. To do this, login to the running web docker using `docker exec -it breedbase_web bash`, then change directories to `/home/production/cxgn/sgn/db`, and finally run `perl run_all_patches.pl -h breedbase_db -d empty_fixture -u postgres -p postgres -e janedoe`.
+- If you are updating across several versions (e.g. v1.3 to 1.7) and there are many database patches to run, you can use the `run_all_patches.pl`. Database patches can take long to complete, and so you should run them in a screen session. To do this, enter a screen session, then login to the running web docker using `docker exec -it breedbase_web bash`, then change directories to `/home/production/cxgn/sgn/db`, and finally run `perl run_all_patches.pl -h breedbase_db -d empty_fixture -u postgres -p postgres -e janedoe`.
 
 ## Using a local PostgreSQL database
 
