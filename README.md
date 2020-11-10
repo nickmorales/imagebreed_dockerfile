@@ -1,4 +1,4 @@
-# ImageBreed v1.11 Now Released
+# ImageBreed v2.0 Now Released
 
 Launch your own instance of [ImageBreed](https://imagebreed.org) to manage your plant breeding field experiments and aerial image phenotyping!
 
@@ -79,6 +79,8 @@ This repository will be merged back into the [Solgenomics Breedbase](https://git
 - If you are updating across several versions (e.g. v1.3 to 1.7) and an ontology is updated in several of those versions (e.g. in v1.4 and v1.5), you only need to load the pertinent ontology once.
 
 - If you are updating across several versions (e.g. v1.3 to 1.7) and there are many database patches to run, you can use the `run_all_patches.pl`. Database patches can take long to complete, and so you should run them in a screen session. To do this, enter a screen session, then login to the running web docker using `docker exec -it breedbase_web bash`, then change directories to `/home/production/cxgn/sgn/db`, and finally run `perl run_all_patches.pl -h breedbase_db -d empty_fixture -u postgres -p postgres -e janedoe`.
+
+- When updating between versions it is recommended to create database backups. Backup your database first by logging into where the database is running (e.g. `docker exec -it breedbase_db bash`) then create a backup to a file using `pg_dump -U postgres empty_fixture > breedbase_fixture_v1_10122020.sql`. Keep this backup safe!
 
 ## Using a local PostgreSQL database
 

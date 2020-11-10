@@ -148,9 +148,10 @@ RUN g++ /home/production/cxgn/DroneImageScripts/cpp/stitching_multi.cpp -o /usr/
 #    && python3 setup.py install
 
 # INSTALL REML F90 SUITE
-RUN wget -r -np -R "index.html*" http://nce.ads.uga.edu/html/projects/programs/Linux/64bit_AMD/ \
-    && chmod 777 nce.ads.uga.edu/html/projects/programs/Linux/64bit_AMD/* \
-    && scp nce.ads.uga.edu/html/projects/programs/Linux/64bit_AMD/* /usr/local/bin
+#RUN wget -r -np -R "index.html*" http://nce.ads.uga.edu/html/projects/programs/Linux/64bit_AMD/ \
+#    && chmod 777 nce.ads.uga.edu/html/projects/programs/Linux/64bit_AMD/* \
+#    && scp nce.ads.uga.edu/html/projects/programs/Linux/64bit_AMD/* /usr/local/bin
+COPY tools/remlf90/* /usr/local/bin/
 
 COPY entrypoint.sh /entrypoint.sh
 RUN ln -s /home/production/cxgn/starmachine/bin/starmachine_init.d /etc/init.d/sgn
