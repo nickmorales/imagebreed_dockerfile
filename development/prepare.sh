@@ -4,7 +4,7 @@ mkdir repos
 
 # main code
 git clone https://github.com/solgenomics/cxgn-corelibs.git repos/cxgn-corelibs
-git clone https://github.com/solgenomics/sgn.git  repos/sgn
+git clone https://github.com/nickmorales/sgn.git repos/sgn
 git clone https://github.com/solgenomics/Phenome.git repos/Phenome
 git clone https://github.com/solgenomics/rPackages.git repos/rPackages
 git clone https://github.com/solgenomics/biosource.git repos/biosource

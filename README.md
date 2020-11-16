@@ -26,7 +26,7 @@ This repository will be merged back into the [Solgenomics Breedbase](https://git
 
 - Logging In: The database has a user named `janedoe` with password `secretpw` for easy logging in from the web-interface.
 
-- Starting with an Empty Database: When starting the service, the database is named `empty_fixture` and is loaded with SQL from [SGN](https://github.com/solgenomics/sgn/blob/master/t/data/fixture/empty_fixture.sql).
+- Starting with an Empty Database: When starting the service, the database is named `empty_fixture` and is loaded with SQL from [SGN](https://github.com/nickmorales/sgn/blob/master/t/data/fixture/empty_fixture.sql).
 
 ### Breedbase Configuration
 
@@ -84,7 +84,7 @@ This repository will be merged back into the [Solgenomics Breedbase](https://git
 
 ## Using a local PostgreSQL database
 
-- The provided `docker-compose.yml` will launch a `breedbase_web` and `breedbase_db` container. If you prefer to install PostgreSQL on your host machine and avoid using the `breedbase_db` Docker, you can comment out the associated breedbase_db lines in the `docker-compose.yml`. This requires adjusting your `sgn_local.conf` to point to your host database, and adjusting your `postgresql.conf` and `pg_hba.conf` configuration to work in this network configuration. You can load SQL from [SGN](https://github.com/solgenomics/sgn/blob/master/t/data/fixture/empty_fixture.sql) as a starting point for your host database.
+- The provided `docker-compose.yml` will launch a `breedbase_web` and `breedbase_db` container. If you prefer to install PostgreSQL on your host machine and avoid using the `breedbase_db` Docker, you can comment out the associated breedbase_db lines in the `docker-compose.yml`. This requires adjusting your `sgn_local.conf` to point to your host database, and adjusting your `postgresql.conf` and `pg_hba.conf` configuration to work in this network configuration. You can load SQL from [SGN](https://github.com/nickmorales/sgn/blob/master/t/data/fixture/empty_fixture.sql) as a starting point for your host database.
 
 ## Developing with this container
 
