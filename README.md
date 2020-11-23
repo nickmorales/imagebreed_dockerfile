@@ -1,4 +1,4 @@
-# ImageBreed v2.0.2 Now Released
+# ImageBreed v2.1 Now Released
 
 Launch your own instance of [ImageBreed](https://imagebreed.org) to manage your plant breeding field experiments and aerial image phenotyping!
 
