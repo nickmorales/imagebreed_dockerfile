@@ -6,6 +6,8 @@ Please check the [changelog](https://github.com/nickmorales/breedbase_dockerfile
 
 This repository will be merged back into the [Solgenomics Breedbase](https://github.com/solgenomics/breedbase_dockerfile) once the conflicts in the systems are resolved.
 
+For a quick tutorial of pieces of the system, go to the [Phenome Force Workshop](https://www.youtube.com/watch?v=yLLaF7sS2Qs&t=2750s).
+
 ### Prerequisites
 
 - You need Docker and docker-compose installed on a machine with at least 8GB RAM and 50GB of disk.
