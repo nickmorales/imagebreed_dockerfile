@@ -130,6 +130,7 @@ RUN . /home/production/cv/bin/activate \
         -D CMAKE_INSTALL_PREFIX=/usr/local \
         -D INSTALL_PYTHON_EXAMPLES=ON \
         -D OPENCV_EXTRA_MODULES_PATH=/home/production/cxgn/opencv_contrib/modules \
+        -D PYTHON_DEFAULT_EXECUTABLE=$(which python3) \
         -D PYTHON3_EXECUTABLE=$(which python3) \
         -D PYTHON3_NUMPY_INCLUDE_DIRS=$(python3 -c "import numpy; print(numpy.get_include())") \
         -D BUILD_EXAMPLES=ON \
