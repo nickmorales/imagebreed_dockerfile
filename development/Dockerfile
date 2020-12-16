@@ -1,7 +1,6 @@
 FROM debian:stretch
 
-LABEL maintainer="lam87@cornell.edu"
-# based on the vagrant provision.sh script by Nick Morales <nm529@cornell.edu>
+LABEL maintainer="nm529@cornell.edu"
 
 ENV CPANMIRROR=http://cpan.cpantesters.org
 
@@ -41,8 +40,8 @@ RUN aptitude install libgdal-dev libproj-dev libudunits2-dev dirmngr software-pr
     && aptitude install default-jre -y
 
 # Postgres 12
-RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add - \
-    && echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list \
+RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
+    && echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list \
     && aptitude update -y \
     && apt-get upgrade -y \
     && aptitude -y install postgresql-12 postgresql-client-12
@@ -58,7 +57,7 @@ RUN chmod 777 /var/spool/ \
 # R 3.6.3
 RUN apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF' \
     && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/debian stretch-cran35/' \
-    && sudo aptitude update -y \
+    && aptitude update -y \
     && aptitude install r-base r-base-dev libopenblas-base -y
 
 # Copy some tools that don't have a Debian package
@@ -106,6 +105,7 @@ RUN bash /home/production/cxgn/sgn/js/install_node.sh
 
 #INSTALL PYTHON3.7
 RUN aptitude install -y build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libreadline-dev libffi-dev libbz2-dev \
+    && cd /home/production/cxgn/ \
     && curl -O https://www.python.org/ftp/python/3.7.9/Python-3.7.9.tar.xz \
     && tar -xf Python-3.7.9.tar.xz \
     && cd Python-3.7.9 \
@@ -118,7 +118,8 @@ RUN aptitude install -y libgtk2.0-dev libgtk-3-0 libgtk-3-dev libavcodec-dev lib
 
 RUN python3 -m venv /home/production/cv \
     && . /home/production/cv/bin/activate \
-    && pip install imutils matplotlib pillow statistics PyExifTool pytz pysolar scikit-image scikit-learn packaging pyzbar pandas tensorflow "numpy<1.17" \
+    && /home/production/cv/bin/python3 -m pip install --upgrade pip \
+    && pip install imutils matplotlib pillow statistics PyExifTool pytz pysolar scikit-image scikit-learn packaging pyzbar pandas numpy tensorflow \
     && pip install -U keras-tuner
 
 RUN . /home/production/cv/bin/activate \
@@ -150,7 +151,6 @@ RUN g++ /home/production/cxgn/DroneImageScripts/cpp/stitching_multi.cpp -o /usr/
 #    && git clone https://github.com/matterport/Mask_RCNN.git \
 #    && cd Mask_RCNN \
 #    #&& pip install -r requirements.txt \
-#    && pip install "setuptools>=46.4.0" \
 #    && python3 setup.py install
 
 # INSTALL REML F90 SUITE
