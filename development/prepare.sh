@@ -23,7 +23,7 @@ git clone https://github.com/solgenomics/DroneImageScripts.git repos/DroneImageS
 git clone https://github.com/solgenomics/Tea.git repos/Tea
 git clone --branch 4.1.0 --depth 1 https://github.com/opencv/opencv repos/opencv
 git clone --branch 4.1.0 --depth 1 https://github.com/opencv/opencv_contrib repos/opencv_contrib
-git clone https://bitbucket.org/tasseladmin/tassel-5-standalone.git
+git clone https://bitbucket.org/tasseladmin/tassel-5-standalone.git repos/tassel-5-standalone
 
 # local libs
 git clone https://github.com/solgenomics/perl-local-lib repos/local-lib
