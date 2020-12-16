@@ -104,16 +104,22 @@ ENV R_LIBS_USER=/home/production/cxgn/R_libs
 
 RUN bash /home/production/cxgn/sgn/js/install_node.sh
 
+#INSTALL PYTHON3.7
+RUN aptitude install -y build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libreadline-dev libffi-dev libbz2-dev \
+    && curl -O https://www.python.org/ftp/python/3.7.9/Python-3.7.9.tar.xz \
+    && tar -xf Python-3.7.9.tar.xz \
+    && cd Python-3.7.9 \
+    && ./configure --enable-optimizations \
+    && make -j 4 \
+    && make install
+
 #INSTALL OPENCV IMAGING LIBRARY
-RUN aptitude install -y python3-dev python-pip python3-pip python-numpy
 RUN aptitude install -y libgtk2.0-dev libgtk-3-0 libgtk-3-dev libavcodec-dev libavformat-dev libswscale-dev libhdf5-serial-dev libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libxvidcore-dev libatlas-base-dev gfortran libgdal-dev exiftool libzbar-dev cmake
 
-RUN aptitude install -y python3-virtualenv \
-    && pip3 install virtualenv virtualenvwrapper \
-    && python3 -m virtualenv --python=/usr/bin/python3 /home/production/cv \
+RUN python3 -m venv /home/production/cv \
     && . /home/production/cv/bin/activate \
-    && pip3 install imutils matplotlib pillow statistics PyExifTool pytz pysolar scikit-image scikit-learn packaging pyzbar pandas tensorflow "numpy<1.17" \
-    && pip3 install -U keras-tuner
+    && pip install imutils matplotlib pillow statistics PyExifTool pytz pysolar scikit-image scikit-learn packaging pyzbar pandas tensorflow "numpy<1.17" \
+    && pip install -U keras-tuner
 
 RUN . /home/production/cv/bin/activate \
     && cd /home/production/cxgn/opencv \
@@ -138,13 +144,13 @@ RUN mv /usr/local/lib/python3.5/site-packages/cv2/python-3.5/cv2.cpython-35m-x86
 RUN g++ /home/production/cxgn/DroneImageScripts/cpp/stitching_multi.cpp -o /usr/bin/stitching_multi `pkg-config opencv4 --cflags --libs` \
     && g++ /home/production/cxgn/DroneImageScripts/cpp/stitching_single.cpp -o /usr/bin/stitching_single `pkg-config opencv4 --cflags --libs`
 
-#RUN python3 -m virtualenv --python=/usr/bin/python3 /home/production/mrcnn \
+#RUN python3 -m venv /home/production/mrcnn \
 #    && . /home/production/mrcnn/bin/activate \
-#    && pip3 install tensorflow==1.5.0 keras==2.1.5 "numpy<1.17" scipy matplotlib scikit-image Pillow cython h5py imgaug IPython[all] "six>=1.15.0" \
+#    && pip install tensorflow==1.5.0 keras==2.1.5 "numpy<1.17" scipy matplotlib scikit-image Pillow cython h5py imgaug IPython[all] "six>=1.15.0" \
 #    && git clone https://github.com/matterport/Mask_RCNN.git \
 #    && cd Mask_RCNN \
-#    #&& pip3 install -r requirements.txt \
-#    && pip3 install "setuptools>=46.4.0" \
+#    #&& pip install -r requirements.txt \
+#    && pip install "setuptools>=46.4.0" \
 #    && python3 setup.py install
 
 # INSTALL REML F90 SUITE
