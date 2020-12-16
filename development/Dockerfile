@@ -110,7 +110,7 @@ RUN aptitude install -y build-essential zlib1g-dev libncurses5-dev libgdbm-dev l
     && tar -xf Python-3.7.9.tar.xz \
     && cd Python-3.7.9 \
     && ./configure --enable-optimizations \
-    && make -j 4 \
+    && make -j 70 \
     && make install
 
 #INSTALL OPENCV IMAGING LIBRARY
@@ -134,7 +134,7 @@ RUN . /home/production/cv/bin/activate \
         -D BUILD_EXAMPLES=ON \
         -D OPENCV_ENABLE_NONFREE=ON \
         -D OPENCV_GENERATE_PKGCONFIG=YES .. \
-    && make -j 4 \
+    && make -j 70 \
     && make install \
     && ldconfig
 
