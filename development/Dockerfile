@@ -109,7 +109,7 @@ RUN aptitude install -y build-essential zlib1g-dev libncurses5-dev libgdbm-dev l
     && curl -O https://www.python.org/ftp/python/3.7.9/Python-3.7.9.tar.xz \
     && tar -xf Python-3.7.9.tar.xz \
     && cd Python-3.7.9 \
-    && ./configure --enable-optimizations \
+    && ./configure \
     && make -j 70 \
     && make install
 
