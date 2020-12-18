@@ -103,24 +103,16 @@ ENV R_LIBS_USER=/home/production/cxgn/R_libs
 
 RUN bash /home/production/cxgn/sgn/js/install_node.sh
 
-#INSTALL PYTHON3.7
-RUN aptitude install -y build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libreadline-dev libffi-dev libbz2-dev \
-    && cd /home/production/cxgn/ \
-    && curl -O https://www.python.org/ftp/python/3.7.9/Python-3.7.9.tar.xz \
-    && tar -xf Python-3.7.9.tar.xz \
-    && cd Python-3.7.9 \
-    && ./configure \
-    && make -j 70 \
-    && make install
-
 #INSTALL OPENCV IMAGING LIBRARY
+RUN aptitude install -y python3-dev python-pip python3-pip python-numpy
 RUN aptitude install -y libgtk2.0-dev libgtk-3-0 libgtk-3-dev libavcodec-dev libavformat-dev libswscale-dev libhdf5-serial-dev libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libxvidcore-dev libatlas-base-dev gfortran libgdal-dev exiftool libzbar-dev cmake
 
-RUN python3 -m venv /home/production/cv \
+RUN aptitude install -y python3-virtualenv \
+    && pip3 install virtualenv virtualenvwrapper \
+    && python3 -m virtualenv --python=/usr/bin/python3 /home/production/cv \
     && . /home/production/cv/bin/activate \
-    && /home/production/cv/bin/python3 -m pip install --upgrade pip \
-    && pip install imutils matplotlib pillow statistics PyExifTool pytz pysolar scikit-image scikit-learn packaging pyzbar pandas numpy tensorflow \
-    && pip install -U keras-tuner
+    && pip3 install imutils matplotlib pillow statistics PyExifTool pytz pysolar scikit-image scikit-learn packaging pyzbar pandas tensorflow "numpy<1.17" \
+    && pip3 install -U keras-tuner
 
 RUN . /home/production/cv/bin/activate \
     && cd /home/production/cxgn/opencv \
@@ -130,28 +122,28 @@ RUN . /home/production/cv/bin/activate \
         -D CMAKE_INSTALL_PREFIX=/usr/local \
         -D INSTALL_PYTHON_EXAMPLES=ON \
         -D OPENCV_EXTRA_MODULES_PATH=/home/production/cxgn/opencv_contrib/modules \
-        -D PYTHON_DEFAULT_EXECUTABLE=$(which python3) \
         -D PYTHON3_EXECUTABLE=$(which python3) \
         -D PYTHON3_NUMPY_INCLUDE_DIRS=$(python3 -c "import numpy; print(numpy.get_include())") \
         -D BUILD_EXAMPLES=ON \
         -D OPENCV_ENABLE_NONFREE=ON \
         -D OPENCV_GENERATE_PKGCONFIG=YES .. \
-    && make -j 70 \
+    && make -j 4 \
     && make install \
     && ldconfig
 
-RUN mv /usr/local/lib/python3.7/site-packages/cv2/python-3.7/cv2.cpython-37m-x86_64-linux-gnu.so /usr/local/lib/python3.7/site-packages/cv2/python-3.7/cv2.so \
-    && ln -s /usr/local/lib/python3.7/site-packages/cv2/python-3.7/cv2.so /home/production/cv/lib/python3.7/site-packages/cv2.so
+RUN mv /usr/local/lib/python3.5/site-packages/cv2/python-3.5/cv2.cpython-35m-x86_64-linux-gnu.so /usr/local/lib/python3.5/site-packages/cv2/python-3.5/cv2.so \
+    && ln -s /usr/local/lib/python3.5/site-packages/cv2/python-3.5/cv2.so /home/production/cv/lib/python3.5/site-packages/cv2.so
 
 RUN g++ /home/production/cxgn/DroneImageScripts/cpp/stitching_multi.cpp -o /usr/bin/stitching_multi `pkg-config opencv4 --cflags --libs` \
     && g++ /home/production/cxgn/DroneImageScripts/cpp/stitching_single.cpp -o /usr/bin/stitching_single `pkg-config opencv4 --cflags --libs`
 
-#RUN python3 -m venv /home/production/mrcnn \
+#RUN python3 -m virtualenv --python=/usr/bin/python3 /home/production/mrcnn \
 #    && . /home/production/mrcnn/bin/activate \
-#    && pip install tensorflow==1.5.0 keras==2.1.5 "numpy<1.17" scipy matplotlib scikit-image Pillow cython h5py imgaug IPython[all] "six>=1.15.0" \
+#    && pip3 install tensorflow==1.5.0 keras==2.1.5 "numpy<1.17" scipy matplotlib scikit-image Pillow cython h5py imgaug IPython[all] "six>=1.15.0" \
 #    && git clone https://github.com/matterport/Mask_RCNN.git \
 #    && cd Mask_RCNN \
-#    #&& pip install -r requirements.txt \
+#    #&& pip3 install -r requirements.txt \
+#    && pip3 install "setuptools>=46.4.0" \
 #    && python3 setup.py install
 
 # INSTALL REML F90 SUITE
