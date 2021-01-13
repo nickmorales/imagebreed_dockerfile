@@ -1,10 +1,11 @@
 #!/bin/bash
 
 mkdir repos
+mkdir repos_opencv
 
 # main code
 git clone https://github.com/solgenomics/cxgn-corelibs.git repos/cxgn-corelibs
-git clone https://github.com/nickmorales/sgn.git repos/sgn
+git clone https://github.com/nickmorales/sgn.git  repos/sgn
 git clone https://github.com/solgenomics/Phenome.git repos/Phenome
 git clone https://github.com/solgenomics/rPackages.git repos/rPackages
 git clone https://github.com/solgenomics/biosource.git repos/biosource
@@ -21,14 +22,16 @@ git clone https://github.com/GMOD/chado_tools repos/chado_tools
 git clone https://github.com/GMOD/Bio-Chado-Schema repos/Bio-Chado-Schema
 git clone https://github.com/solgenomics/DroneImageScripts.git repos/DroneImageScripts
 git clone https://github.com/solgenomics/Tea.git repos/Tea
-git clone --branch 4.1.0 --depth 1 https://github.com/opencv/opencv repos/opencv
-git clone --branch 4.1.0 --depth 1 https://github.com/opencv/opencv_contrib repos/opencv_contrib
 git clone https://bitbucket.org/tasseladmin/tassel-5-standalone.git repos/tassel-5-standalone
 
 # local libs
-git clone https://github.com/solgenomics/perl-local-lib repos/local-lib
-git clone https://github.com/solgenomics/R_libs repos/R_libs
+git clone --branch topic/debian_buster --depth 1 https://github.com/solgenomics/perl-local-lib repos/local-lib
+git clone --branch topic/debian_buster_R3.6.3_wASREMLR --depth 1 https://github.com/solgenomics/R_libs repos/R_libs
 git clone https://github.com/solgenomics/python_virtual_environment repos/python_virtual_environment
+
+# OpenCV
+git clone --branch 4.1.0 --depth 1 https://github.com/opencv/opencv repos_opencv/opencv
+git clone --branch 4.1.0 --depth 1 https://github.com/opencv/opencv_contrib repos_opencv/opencv_contrib
 
 # Mason website skins
 git clone https://github.com/solgenomics/cassava.git repos/cassava

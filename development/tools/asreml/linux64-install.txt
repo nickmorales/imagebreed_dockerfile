@@ -1,0 +1,126 @@
+ASReml 4.1 Installation Notes
+-------------------------------
+
+Operating System: Linux (64-bit)
+Build platform version details :
+    CentOS release 6.6 (Final)
+    Linux version 2.6.32-504.el6.x86_64
+    (mockbuild@c6b9.bsys.dev.centos.org) (gcc version 4.4.7 20120313
+    (Red Hat 4.4.7-11) (GCC) ) #1 SMP Wed Oct 15 04:27:16 UTC 2014
+
+Limits:
+Max Workspace = 32000Mb (32 Gigabytes )
+
+Features:
+Interactive Graphics with hardcopy options EPS, WMF, JPG, HPGL, HPGL2,
+BMP, WPM
+
+Please note that this implementation has been produced under 
+CentOS release 6.6 (Final), should be suitable for other similar Linux 
+versions. Please contact support@asreml.co.uk in case of problems that arise.
+
+Files
+-----
+The program is provided in a universal linux version. This should be
+suitable for most recent versions of Linux. It has been successfully
+tested on many systems, including versions of Fedora from Fedora Core
+6 and upwards, CentOS, OpenSuse, Debian and Ubuntu. The files are
+contained in a compressed download as follows:
+
+	asreml-4.x.0.b-vv.64.tgz  
+
+where the letters 'x','b' and 'vv' are replaced by the sub-version, build
+number and build letters of the software. The initial release in December 2014
+was formed from asreml-4.1.0.978-lo.64.tgz, i.e. x=1,b=978 and vv="lo". Small
+incremental changes to the sub-version may occur during the lifetime of this
+software, principally to correct bugs that arise in use.
+
+The tar archive contains a number of files, some of which are common to
+all versions and the executable program which is specific to the target
+system. The contents of the archive is as follows:
+
+bin\asreml.sh		        shell script to invoke the program
+bin\asreml-4.x.0.b-vv.64	executable image file, ASReml version 4.x, build vv
+bin\RequestLicense	        a tool to generate a license request
+bin\myowngdg.f90	        example Fortran source for OWN variance structure
+
+doc\ASReml.htm		        HTML Help files (view in normal browser)
+doc\UserGuideFunctional.pdf	Principal source of reference
+doc\UserGuideStructural.pdf	Principal source of reference
+doc\UpdateR4.pdf	        Description of changes since version 3.0
+doc\pedigree.pdf	        Description of pedigree options
+
+examples\*.*		Data and input files for examples contained within
+                        the User Guide
+
+
+Installation
+------------
+1. Create a directory to hold ASReml v4. The suggested location is:
+
+		/opt/vsn/asreml/4.x.0.b
+
+   which will require root privilege. Alternatively, you can install the
+   software in personal file space, e.g. $HOME/asreml4
+
+2. Copy the appropriate version of the ASReml archive file from the CD-ROM
+   directory ASReml/linux, or download it from http://www.vsni.co.uk. Then
+   extract the files to the directory /opt/vsn/asreml/4.x.0.b
+
+   The following command will create the subdirectories with contents as
+   listed above:
+
+		tar xvzf asreml.4.1.0.978-lo.64.tgz
+
+4. This step can be ignored if you have installed to /opt/vsn/asreml/4.x.0.b
+   If you have installed to another location you need to edit the asreml.sh
+   script to set the appropriate path name for ASREML_DIR, the ASReml
+   home directory.
+
+4. The asreml.sh script should be used to invoke the program as it sets
+   up various environment variables required by ASReml. As supplied, the
+   script references the current version of the program, as set by the
+   variable "version". If you later add a new version of the executable
+   file, simply change the setting in the script.
+
+5. Create a symbolic link to reference the latest version using the command :
+
+	ln -s /opt/vsn/asreml/4.x.0.b /opt/vsn/asreml/latest
+ 
+6. To make ASReml easily available to users create a link to the file in a
+    folder that is included in the default system path, e.g. in /bin:
+
+	ln -s /opt/vsn/asreml/latest/bin/asreml.sh /bin/asreml
+
+7. To make it easier to switch between versions of ASReml create a link to the selection script 
+
+	ln -s /opt/vsn/asreml/latest/bin/asreml_select.sh /bin/asreml_select
+
+You are now ready to install a license key. If you have a license key
+for an earlier version of ASReml it may also be valid for later versions,
+depending on whether you have maintained support on the software.
+
+If so you can just copy the existing license file (asreml.lic) into
+/opt/asreml4/bin.
+
+If you need to renew your license, or need to activate ASReml for the
+first time, you can run the RequestLicense application which is located
+in the bin directory. Just type:
+
+	/opt/vsn/asreml/latest/bin/RequestLicense
+
+and follow the instructions that appear. You will have the choice of
+online registration or saving to a file which can then be sent via
+email.
+
+Licensing
+---------
+A summary of FLEXnet licensing as used within ASReml is given in the
+ASReml HTML help files. Open doc/ASReml.htm in your browser and read the
+relevant section of the volume entitled "ASReml License Management".
+
+Support
+-------
+Any errors, omissions, or other problems should be reported to:
+support@asreml.co.uk
+

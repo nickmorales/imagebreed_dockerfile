@@ -1,5 +1,6 @@
 sgn_local.conf
 repos
+repos_opencv
 sgn
 cxgn-corelibs
 local-lib

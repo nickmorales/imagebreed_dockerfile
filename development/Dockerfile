@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:buster
 
 LABEL maintainer="nm529@cornell.edu"
 
@@ -23,8 +23,6 @@ RUN mkdir -p /home/production/public/sgn_static_content \
     && mkdir /etc/starmachine \
     && mkdir /var/log/sgn
 
-WORKDIR /home/production/cxgn
-
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
     && apt-get update -y --allow-unauthenticated \
     && apt-get upgrade -y \
@@ -34,10 +32,10 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 RUN apt-get install -y aptitude
 RUN aptitude install -y libterm-readline-zoid-perl nginx starman emacs gedit vim less sudo htop git dkms perl-doc ack-grep make xutils-dev nfs-common lynx xvfb ncbi-blast+ libmunge-dev libmunge2 munge slurm-wlm slurmctld slurmd libslurm-perl libssl-dev graphviz lsof imagemagick mrbayes muscle bowtie bowtie2 blast2 postfix mailutils libcupsimage2 libglib2.0-dev libglib2.0-bin screen apt-transport-https wget
 
-# Required for R-package spdep, and other dependencies of agricolae
+# Required for R-package spdep, dependencies of agricolae
 # Java for Tassel
-RUN aptitude install libgdal-dev libproj-dev libudunits2-dev dirmngr software-properties-common -y \
-    && aptitude install default-jre -y
+RUN aptitude install libgdal-dev libproj-dev libudunits2-dev dirmngr software-properties-common libgfortran-8-dev libicu-dev libgit2-dev -y \
+    && aptitude install default-jre default-jdk -y
 
 # Postgres 12
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
@@ -51,57 +49,24 @@ RUN curl -L https://cpanmin.us | perl - --sudo App::cpanminus
 RUN chmod 777 /var/spool/ \
     && mkdir /var/spool/slurmstate \
     && chown slurm:slurm /var/spool/slurmstate/ \
-    && /usr/sbin/create-munge-key \
+    && echo 'Y' | /usr/sbin/create-munge-key \
     && ln -s /var/lib/slurm-llnl /var/lib/slurm
 
 # R 3.6.3
 RUN apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF' \
-    && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/debian stretch-cran35/' \
+    && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/debian buster-cran35/' \
     && aptitude update -y \
     && aptitude install r-base r-base-dev libopenblas-base -y
-
-# Copy some tools that don't have a Debian package
-COPY tools/gcta/gcta64  /usr/local/bin/
-COPY tools/quicktree /usr/local/bin/
-COPY tools/sreformat /usr/local/bin/
-
-# Copy imagemagick policy with higher resource limits
-COPY imagemagick_policy.xml /etc/ImageMagick-6/policy.xml
-
-# Copy code repos. Run the prepare.pl script to clone them before the build
-ADD repos /home/production/cxgn
-
-WORKDIR /home/production/cxgn/sgn
-
-COPY sgn_local_docker.conf /home/production/cxgn/sgn/sgn_local.conf
-COPY slurm.conf /etc/slurm-llnl/slurm.conf
-COPY sgn_local_docker.conf /home/production/cxgn/sgn/
-COPY starmachine.conf /etc/starmachine/
 
 # XML::Simple dependency: libexpat1-dev
 # HTML::FormFu: libcatalyst-controller-html-formfu-perl
 # Cairo Perl module needs this: libcairo2-dev
-# GD Perl module needs this: libgd2-xpm-dev
+# GD Perl module needs this: libgd-dev
 # postgres driver DBD::Pg needs this: libpq-dev
 # MooseX::Runnable Perl module needs this: libmoosex-runnable-perl
-RUN aptitude install libexpat1-dev -y \
-    && aptitude install libcatalyst-controller-html-formfu-perl -y \
-    && aptitude install libcairo2-dev -y \
-    && aptitude install libgd2-xpm-dev -y \
-    && aptitude install libpq-dev -y \
-    && aptitude install libmoosex-runnable-perl -y \
-    && aptitude install libgdbm3 libgdm-dev -y
+RUN aptitude install -y libexpat1-dev libcatalyst-controller-html-formfu-perl libcairo2-dev libgd-dev libpq-dev libmoosex-runnable-perl libgdbm6 libgdm-dev
 
-RUN aptitude install nodejs -y
-
-ENV PERL5LIB=/home/production/cxgn/local-lib/:/home/production/cxgn/local-lib/lib/perl5:/home/production/cxgn/sgn/lib:/home/production/cxgn/cxgn-corelibs/lib:/home/production/cxgn/Phenome/lib:/home/production/cxgn/Cview/lib:/home/production/cxgn/ITAG/lib:/home/production/cxgn/biosource/lib:/home/production/cxgn/tomato_genome/lib:/home/production/cxgn/Chado/chado/lib:/home/production/cxgn/Bio-Chado-Schema/lib:.
-
-ENV HOME=/home/production
-ENV PGPASSFILE=/home/production/.pgpass
-RUN echo "R_LIBS_USER=/home/production/cxgn/R_libs" >> /etc/R/Renviron
-ENV R_LIBS_USER=/home/production/cxgn/R_libs
-
-RUN bash /home/production/cxgn/sgn/js/install_node.sh
+RUN aptitude install nodejs npm -y
 
 #INSTALL OPENCV IMAGING LIBRARY
 RUN aptitude install -y python3-dev python-pip python3-pip python-numpy
@@ -113,6 +78,9 @@ RUN aptitude install -y python3-virtualenv \
     && . /home/production/cv/bin/activate \
     && pip3 install imutils matplotlib pillow statistics PyExifTool pytz pysolar scikit-image scikit-learn packaging pyzbar pandas tensorflow "numpy<1.17" \
     && pip3 install -U keras-tuner
+
+# Copy OPENCV code repos. Run the prepare.pl script to clone them before the build
+ADD repos_opencv /home/production/cxgn
 
 RUN . /home/production/cv/bin/activate \
     && cd /home/production/cxgn/opencv \
@@ -131,11 +99,8 @@ RUN . /home/production/cv/bin/activate \
     && make install \
     && ldconfig
 
-RUN mv /usr/local/lib/python3.5/site-packages/cv2/python-3.5/cv2.cpython-35m-x86_64-linux-gnu.so /usr/local/lib/python3.5/site-packages/cv2/python-3.5/cv2.so \
-    && ln -s /usr/local/lib/python3.5/site-packages/cv2/python-3.5/cv2.so /home/production/cv/lib/python3.5/site-packages/cv2.so
-
-RUN g++ /home/production/cxgn/DroneImageScripts/cpp/stitching_multi.cpp -o /usr/bin/stitching_multi `pkg-config opencv4 --cflags --libs` \
-    && g++ /home/production/cxgn/DroneImageScripts/cpp/stitching_single.cpp -o /usr/bin/stitching_single `pkg-config opencv4 --cflags --libs`
+RUN mv /usr/local/lib/python3.7/site-packages/cv2/python-3.7/cv2.cpython-37m-x86_64-linux-gnu.so /usr/local/lib/python3.7/site-packages/cv2/python-3.7/cv2.so \
+    && ln -s /usr/local/lib/python3.7/site-packages/cv2/python-3.7/cv2.so /home/production/cv/lib/python3.7/site-packages/cv2.so
 
 #RUN python3 -m virtualenv --python=/usr/bin/python3 /home/production/mrcnn \
 #    && . /home/production/mrcnn/bin/activate \
@@ -151,6 +116,44 @@ RUN g++ /home/production/cxgn/DroneImageScripts/cpp/stitching_multi.cpp -o /usr/
 #    && chmod 777 nce.ads.uga.edu/html/projects/programs/Linux/64bit_AMD/* \
 #    && scp nce.ads.uga.edu/html/projects/programs/Linux/64bit_AMD/* /usr/local/bin
 COPY tools/remlf90/* /usr/local/bin/
+
+# INSTALL ASREML
+RUN mkdir -p /opt/vsn/asreml/4.x.0.b
+COPY tools/asreml /opt/vsn/asreml/4.x.0.b/
+RUN ln -s /opt/vsn/asreml/4.x.0.b /opt/vsn/asreml/latest \
+    && ln -s /opt/vsn/asreml/latest/bin/asreml.sh /bin/asreml \
+    && ln -s /opt/vsn/asreml/latest/bin/asreml_select.sh /bin/asreml_select
+
+# Copy some tools that don't have a Debian package
+COPY tools/gcta/gcta64  /usr/local/bin/
+COPY tools/quicktree /usr/local/bin/
+COPY tools/sreformat /usr/local/bin/
+
+# Copy imagemagick policy with higher resource limits
+COPY imagemagick_policy.xml /etc/ImageMagick-6/policy.xml
+
+# Copy code repos. Run the prepare.pl script to clone them before the build
+ADD repos /home/production/cxgn
+
+RUN g++ /home/production/cxgn/DroneImageScripts/cpp/stitching_multi.cpp -o /usr/bin/stitching_multi `pkg-config opencv4 --cflags --libs` \
+    && g++ /home/production/cxgn/DroneImageScripts/cpp/stitching_single.cpp -o /usr/bin/stitching_single `pkg-config opencv4 --cflags --libs`
+
+COPY sgn_local_docker.conf /home/production/cxgn/sgn/sgn_local.conf
+COPY slurm.conf /etc/slurm-llnl/slurm.conf
+COPY sgn_local_docker.conf /home/production/cxgn/sgn/
+COPY starmachine.conf /etc/starmachine/
+
+WORKDIR /home/production/cxgn/sgn
+
+ENV PERL5LIB=/home/production/cxgn/local-lib/:/home/production/cxgn/local-lib/lib/perl5:/home/production/cxgn/sgn/lib:/home/production/cxgn/cxgn-corelibs/lib:/home/production/cxgn/Phenome/lib:/home/production/cxgn/Cview/lib:/home/production/cxgn/ITAG/lib:/home/production/cxgn/biosource/lib:/home/production/cxgn/tomato_genome/lib:/home/production/cxgn/Chado/chado/lib:/home/production/cxgn/Bio-Chado-Schema/lib:.
+
+ENV HOME=/home/production
+ENV PGPASSFILE=/home/production/.pgpass
+RUN echo "R_LIBS_USER=/home/production/cxgn/R_libs" >> /etc/R/Renviron
+ENV R_LIBS_USER=/home/production/cxgn/R_libs
+
+RUN bash /home/production/cxgn/sgn/js/install_node.sh \
+    && apt -y autoremove
 
 COPY entrypoint.sh /entrypoint.sh
 RUN ln -s /home/production/cxgn/starmachine/bin/starmachine_init.d /etc/init.d/sgn
