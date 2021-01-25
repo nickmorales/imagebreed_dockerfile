@@ -6,6 +6,8 @@ Please check the [changelog](https://github.com/nickmorales/breedbase_dockerfile
 
 For a quick tutorial of pieces of the aerial image phenotyping system, go to the [Phenome Force Workshop](https://www.youtube.com/watch?v=yLLaF7sS2Qs).
 
+Please note that post-V1 releases (e.g. V2, V3) of ImageBreed are not equivalent to Breedbase and should be regarded as independent systems.
+
 ### Prerequisites
 
 - You need Docker and docker-compose installed on a machine with at least 8GB RAM and 50GB of disk.
