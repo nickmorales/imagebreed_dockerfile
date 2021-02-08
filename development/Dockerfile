@@ -76,7 +76,8 @@ RUN aptitude install -y python3-virtualenv \
     && pip3 install virtualenv virtualenvwrapper \
     && python3 -m virtualenv --python=/usr/bin/python3 /home/production/cv \
     && . /home/production/cv/bin/activate \
-    && pip3 install imutils matplotlib pillow statistics PyExifTool pytz pysolar scikit-image scikit-learn packaging pyzbar pandas tensorflow "numpy<1.17" \
+    && /home/production/cv/bin/python3 -m pip install --upgrade pip \
+    && pip3 install imutils matplotlib pillow statistics PyExifTool pytz pysolar scikit-image scikit-learn packaging pyzbar pandas tensorflow numpy rasterio \
     && pip3 install -U keras-tuner
 
 # Copy OPENCV code repos. Run the prepare.pl script to clone them before the build
