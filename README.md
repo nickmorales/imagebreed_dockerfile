@@ -12,7 +12,7 @@ Please note that post-V1 releases (e.g. V2, V3) of ImageBreed are not equivalent
 
 - You need Docker and docker-compose installed on a machine with at least 8GB RAM and 50GB of disk.
 
-## Start the Service
+## Start the Service:
 
 - To start the service, simply change directories to where the provided `docker-compose.yml` file is located (you can simply copy-paste the provided `docker-compose.yml` onto your own computer or you can `git clone` this repository), then:
 
@@ -38,7 +38,7 @@ Please note that post-V1 releases (e.g. V2, V3) of ImageBreed are not equivalent
 
 - When mounting persistent data directories and/or code directories in the `docker-compose.yml`, DO NOT alter the target, only alter the source to match your host configuration.
 
-## Helpful commands:
+## Helpful Commands:
 
 - Stopping the service: This will stop all containers (both web and db). Note: You must be located in the directory where the `docker-compose.yml` file is located.
 
@@ -48,7 +48,7 @@ Please note that post-V1 releases (e.g. V2, V3) of ImageBreed are not equivalent
 
 - Docker-compose will not delete the downloaded Docker images. Use `docker images` to view the downloaded images and then use `docker rmi IMAGEID` to delete it. The Docker images are large and can take up large amounts of disk space, and should be deleted when not in use.
 
-### Debugging a running container
+### Debugging a Running Container
 
 - To view the log on a running service:
 
@@ -70,7 +70,7 @@ Please note that post-V1 releases (e.g. V2, V3) of ImageBreed are not equivalent
     docker exec -it breedbase_db bash
     ```
 
-## Updating between versions of this Docker deployment
+## Updating Between Versions of This Docker Deployment:
 
 - When updating between versions (e.g. v1.3 to v1.4), first check the [changelog](https://github.com/nickmorales/breedbase_dockerfile/wiki/Changelog).
 
@@ -84,19 +84,19 @@ Please note that post-V1 releases (e.g. V2, V3) of ImageBreed are not equivalent
 
 - If you are updating across several versions (e.g. v1.3 to 1.7) and there are many database patches to run, you can use the `run_all_patches.pl`. Database patches can take long to complete, and so you should run them in a screen session. To do this, enter a screen session, then login to the running web docker using `docker exec -it breedbase_web bash`, then change directories to `/home/production/cxgn/sgn/db`, and finally run `perl run_all_patches.pl -h breedbase_db -d empty_fixture -u postgres -p postgres -e janedoe`.
 
-- When updating between versions (e.g. V1 to V2) it is recommended to create database backups. Backup your database first by logging into where the database is running (e.g. `docker exec -it breedbase_db bash`) then create a backup to a file using `pg_dump -U postgres empty_fixture > breedbase_fixture_v1_10122020.sql`. Keep this backup safe!
+- When updating between major versions (e.g. v1 to v2) it is recommended to create database backups. Backup your database first by logging into where the database is running (e.g. `docker exec -it breedbase_db bash`) then create a backup to a file using `pg_dump -U postgres empty_fixture > breedbase_fixture_v1_10122020.sql`. Keep this backup safe!
 
-## Using a local PostgreSQL database
+## Using a Local PostgreSQL Database:
 
 - The provided `docker-compose.yml` will launch a `breedbase_web` and `breedbase_db` container. If you prefer to install PostgreSQL on your host machine and avoid using the `breedbase_db` Docker, you can comment out the associated breedbase_db lines in the `docker-compose.yml`. This requires adjusting your `sgn_local.conf` to point to your host database, and adjusting your `postgresql.conf` and `pg_hba.conf` configuration to work in this network configuration. You can load SQL from [SGN](https://github.com/nickmorales/sgn/blob/master/t/data/fixture/empty_fixture.sql) as a starting point for your host database.
 
-## Developing with this container
+## Developing With This Container:
 
 - In the `docker-compose.yml` file you can mount the code directories you are developing, such as the sgn, DroneImageScripts, R_libs, perl-local-lib or other directories.
 
 - In the `docker-compose.yml` add in the environment section: `MODE=DEVELOPMENT`. This will restart the service whenever code changes are made to sgn or other core directories. Note, you may need to delete sgn/js/build and allow the application to rebuild this with the correct permissions; please allow up to 10 minutes for the JS to rebuild.
 
-## Manually building the image
+## Manually Building the Image:
 
 Alternatively, the docker image can be built from scratch. This is recommended if you would like to develop based on the image.
 
