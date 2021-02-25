@@ -78,30 +78,31 @@ RUN aptitude install -y python3-virtualenv \
     && . /home/production/cv/bin/activate \
     && /home/production/cv/bin/python3 -m pip install --upgrade pip \
     && pip3 install imutils matplotlib pillow statistics PyExifTool pytz pysolar scikit-image scikit-learn packaging pyzbar pandas tensorflow numpy rasterio \
+    && pip3 install opencv-python \
     && pip3 install -U keras-tuner
 
 # Copy OPENCV code repos. Run the prepare.pl script to clone them before the build
-ADD repos_opencv /home/production/cxgn
+# ADD repos_opencv /home/production/cxgn
 
-RUN . /home/production/cv/bin/activate \
-    && cd /home/production/cxgn/opencv \
-    && mkdir build \
-    && cd /home/production/cxgn/opencv/build \
-    && cmake -D CMAKE_BUILD_TYPE=RELEASE \
-        -D CMAKE_INSTALL_PREFIX=/usr/local \
-        -D INSTALL_PYTHON_EXAMPLES=ON \
-        -D OPENCV_EXTRA_MODULES_PATH=/home/production/cxgn/opencv_contrib/modules \
-        -D PYTHON3_EXECUTABLE=$(which python3) \
-        -D PYTHON3_NUMPY_INCLUDE_DIRS=$(python3 -c "import numpy; print(numpy.get_include())") \
-        -D BUILD_EXAMPLES=ON \
-        -D OPENCV_ENABLE_NONFREE=ON \
-        -D OPENCV_GENERATE_PKGCONFIG=YES .. \
-    && make -j 4 \
-    && make install \
-    && ldconfig
+#RUN . /home/production/cv/bin/activate \
+#    && cd /home/production/cxgn/opencv \
+#    && mkdir build \
+#    && cd /home/production/cxgn/opencv/build \
+#    && cmake -D CMAKE_BUILD_TYPE=RELEASE \
+#        -D CMAKE_INSTALL_PREFIX=/usr/local \
+#        -D INSTALL_PYTHON_EXAMPLES=ON \
+#        -D OPENCV_EXTRA_MODULES_PATH=/home/production/cxgn/opencv_contrib/modules \
+#        -D PYTHON3_EXECUTABLE=$(which python3) \
+#        -D PYTHON3_NUMPY_INCLUDE_DIRS=$(python3 -c "import numpy; print(numpy.get_include())") \
+#        -D BUILD_EXAMPLES=ON \
+#        -D OPENCV_ENABLE_NONFREE=ON \
+#        -D OPENCV_GENERATE_PKGCONFIG=YES .. \
+#    && make -j 4 \
+#    && make install \
+#    && ldconfig
 
-RUN mv /usr/local/lib/python3.7/site-packages/cv2/python-3.7/cv2.cpython-37m-x86_64-linux-gnu.so /usr/local/lib/python3.7/site-packages/cv2/python-3.7/cv2.so \
-    && ln -s /usr/local/lib/python3.7/site-packages/cv2/python-3.7/cv2.so /home/production/cv/lib/python3.7/site-packages/cv2.so
+#RUN mv /usr/local/lib/python3.7/site-packages/cv2/python-3.7/cv2.cpython-37m-x86_64-linux-gnu.so /usr/local/lib/python3.7/site-packages/cv2/python-3.7/cv2.so \
+#    && ln -s /usr/local/lib/python3.7/site-packages/cv2/python-3.7/cv2.so /home/production/cv/lib/python3.7/site-packages/cv2.so
 
 #RUN python3 -m virtualenv --python=/usr/bin/python3 /home/production/mrcnn \
 #    && . /home/production/mrcnn/bin/activate \
@@ -136,8 +137,8 @@ COPY imagemagick_policy.xml /etc/ImageMagick-6/policy.xml
 # Copy code repos. Run the prepare.pl script to clone them before the build
 ADD repos /home/production/cxgn
 
-RUN g++ /home/production/cxgn/DroneImageScripts/cpp/stitching_multi.cpp -o /usr/bin/stitching_multi `pkg-config opencv4 --cflags --libs` \
-    && g++ /home/production/cxgn/DroneImageScripts/cpp/stitching_single.cpp -o /usr/bin/stitching_single `pkg-config opencv4 --cflags --libs`
+# RUN g++ /home/production/cxgn/DroneImageScripts/cpp/stitching_multi.cpp -o /usr/bin/stitching_multi `pkg-config opencv4 --cflags --libs` \
+#    && g++ /home/production/cxgn/DroneImageScripts/cpp/stitching_single.cpp -o /usr/bin/stitching_single `pkg-config opencv4 --cflags --libs`
 
 COPY sgn_local_docker.conf /home/production/cxgn/sgn/sgn_local.conf
 COPY slurm.conf /etc/slurm-llnl/slurm.conf
