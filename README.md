@@ -96,6 +96,8 @@ Please note that post-V1 releases (e.g. V2, V3) of ImageBreed are not equivalent
 
 - Make sure your machine has at least 64GB of RAM.
 
+- In your `sgn_local.conf` set `enable_opendronemap 1`.
+
 ## Developing With This Container:
 
 - In the `docker-compose.yml` file you can mount the code directories you are developing, such as the sgn, DroneImageScripts, R_libs, perl-local-lib or other directories.
