@@ -134,6 +134,12 @@ COPY tools/sreformat /usr/local/bin/
 # Copy imagemagick policy with higher resource limits
 COPY imagemagick_policy.xml /etc/ImageMagick-6/policy.xml
 
+# Install Docker
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add - \
+    && add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" \
+    && aptitude update \
+    && aptitude install docker-ce -y
+
 # Copy code repos. Run the prepare.pl script to clone them before the build
 ADD repos /home/production/cxgn
 

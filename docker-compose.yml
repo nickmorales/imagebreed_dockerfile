@@ -55,6 +55,13 @@ services:
     #  - type: bind
     #    source: ${HOME}/images
     #    target: /home/production/public/images
+    # FOLLOWING ARE IMPORTANT FOR RUNNING OPENDRONEMAP
+    #  - type: bind
+    #    source: /var/run/docker.sock
+    #    target: /var/run/docker.sock
+    #  - type: bind
+    #    source: /home/production/tmp
+    #    target: /home/production/tmp
   breedbase_db:
     image: nmorales3142/nicksbreedbasepostgres:3.4
     restart: always

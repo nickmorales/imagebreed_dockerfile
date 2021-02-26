@@ -90,6 +90,12 @@ Please note that post-V1 releases (e.g. V2, V3) of ImageBreed are not equivalent
 
 - The provided `docker-compose.yml` will launch a `breedbase_web` and `breedbase_db` container. If you prefer to install PostgreSQL on your host machine and avoid using the `breedbase_db` Docker, you can comment out the associated breedbase_db lines in the `docker-compose.yml`. This requires adjusting your `sgn_local.conf` to point to your host database, and adjusting your `postgresql.conf` and `pg_hba.conf` configuration to work in this network configuration. You can load SQL from [SGN](https://github.com/nickmorales/sgn/blob/master/t/data/fixture/empty_fixture.sql) as a starting point for your host database.
 
+## Enabling OpenDroneMap Orthophotomosaic Stitching
+
+- In the `docker-compose.yml`, use the bind mounts for `var/run/docker.sock` and `/home/production/tmp`.
+
+- Make sure your machine has at least 64GB of RAM.
+
 ## Developing With This Container:
 
 - In the `docker-compose.yml` file you can mount the code directories you are developing, such as the sgn, DroneImageScripts, R_libs, perl-local-lib or other directories.
