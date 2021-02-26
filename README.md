@@ -1,4 +1,4 @@
-# ImageBreed v3.4 Now Released
+# ImageBreed v3.5 Now Released
 
 Launch your own instance of [ImageBreed](https://imagebreed.org) to manage your plant breeding field experiments, genotyping, aerial image phenotyping, and high-dimensional phenotyping (NIRS, transcriptomics)!
 
@@ -92,11 +92,7 @@ Please note that post-V1 releases (e.g. V2, V3) of ImageBreed are not equivalent
 
 ## Enabling OpenDroneMap Orthophotomosaic Stitching
 
-- In the `docker-compose.yml`, uncomment the bind mounts for `var/run/docker.sock` and `/home/production/tmp`.
-
-- Make sure your machine has at least 64GB of RAM.
-
-- In your `sgn_local.conf` set `enable_opendronemap 1`.
+- In the `docker-compose.yml`, uncomment the bind mounts for `var/run/docker.sock` and `/home/production/tmp`. Then, in your `sgn_local.conf` set `enable_opendronemap 1`. Make sure your machine has at least 64GB of RAM.
 
 ## Developing With This Container:
 

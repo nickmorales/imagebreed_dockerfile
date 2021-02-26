@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   breedbase:
-    image: nmorales3142/nicksbreedbase:3.4
+    image: nmorales3142/nicksbreedbase:3.5
     restart: always
     depends_on:
       - breedbase_db
@@ -63,7 +63,7 @@ services:
     #    source: /home/production/tmp
     #    target: /home/production/tmp
   breedbase_db:
-    image: nmorales3142/nicksbreedbasepostgres:3.4
+    image: nmorales3142/nicksbreedbasepostgres:3.5
     restart: always
     container_name: breedbase_db
     #volumes:
