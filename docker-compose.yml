@@ -59,9 +59,6 @@ services:
     #  - type: bind
     #    source: /var/run/docker.sock
     #    target: /var/run/docker.sock
-    #  - type: bind
-    #    source: /home/production/tmp
-    #    target: /home/production/tmp
   breedbase_db:
     image: nmorales3142/nicksbreedbasepostgres:3.5
     restart: always

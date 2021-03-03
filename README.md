@@ -90,7 +90,7 @@ Please note that post-V1 releases (e.g. V2, V3) of ImageBreed are not equivalent
 
 ## Enabling OpenDroneMap Orthophotomosaic Stitching
 
-- In the `docker-compose.yml`, uncomment the bind mounts for `var/run/docker.sock` and `/home/production/tmp`. Then, in your `sgn_local.conf` set `enable_opendronemap 1`. Make sure your machine has at least 64GB of RAM.
+- In the `docker-compose.yml`, uncomment the bind mount for `var/run/docker.sock`. Then, in your `sgn_local.conf` set `enable_opendronemap 1` and make sure `hostpath` is set to the directory where the archive mount lives on your host e.g. `/home/user` if the archive is mounted to `/home/user/archive` as defined in `docker-compose.yml`. Make sure your machine has at least 64GB of RAM.
 
 ## Developing With This Container:
 

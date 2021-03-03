@@ -70,7 +70,7 @@ RUN aptitude install nodejs npm -y
 
 #INSTALL OPENCV IMAGING LIBRARY
 RUN aptitude install -y python3-dev python-pip python3-pip python-numpy
-RUN aptitude install -y libgtk2.0-dev libgtk-3-0 libgtk-3-dev libavcodec-dev libavformat-dev libswscale-dev libhdf5-serial-dev libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libxvidcore-dev libatlas-base-dev gfortran libgdal-dev exiftool libzbar-dev cmake
+RUN aptitude install -y libgtk2.0-dev libgtk-3-0 libgtk-3-dev libavcodec-dev libavformat-dev libswscale-dev libhdf5-serial-dev libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libxvidcore-dev libatlas-base-dev gfortran exiftool libzbar-dev cmake
 
 RUN aptitude install -y python3-virtualenv \
     && pip3 install virtualenv virtualenvwrapper \
@@ -79,7 +79,8 @@ RUN aptitude install -y python3-virtualenv \
     && /home/production/cv/bin/python3 -m pip install --upgrade pip \
     && pip3 install imutils matplotlib pillow statistics PyExifTool pytz pysolar scikit-image scikit-learn packaging pyzbar pandas tensorflow numpy rasterio \
     && pip3 install opencv-python \
-    && pip3 install -U keras-tuner
+    && pip3 install -U keras-tuner \
+    && pip3 install GDAL==$(gdal-config --version) --global-option=build_ext --global-option="-I/usr/include/gdal"
 
 # Copy OPENCV code repos. Run the prepare.pl script to clone them before the build
 # ADD repos_opencv /home/production/cxgn
