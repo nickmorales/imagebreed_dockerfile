@@ -4,8 +4,8 @@ mkdir repos
 mkdir repos_opencv
 
 # main code
-git clone https://github.com/solgenomics/cxgn-corelibs.git repos/cxgn-corelibs
-git clone https://github.com/nickmorales/sgn.git  repos/sgn
+git clone --branch topic/metadata_schema_fixes --depth 1 https://github.com/solgenomics/cxgn-corelibs.git repos/cxgn-corelibs
+git clone --branch master --depth 1 https://github.com/nickmorales/sgn.git  repos/sgn
 git clone https://github.com/solgenomics/Phenome.git repos/Phenome
 git clone https://github.com/solgenomics/rPackages.git repos/rPackages
 git clone https://github.com/solgenomics/biosource.git repos/biosource
