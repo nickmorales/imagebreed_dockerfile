@@ -22,7 +22,7 @@ Please note that post-V1 releases (e.g. V2, V3) of ImageBreed are not equivalent
 
 - Note, it may take up to 10 minutes for the service to fully start up the first time, as it must rebuild the Node JavaScript dependencies.
 
-- The Docker compose will fetch the container images from this [DockerHub](https://hub.docker.com/repository/docker/nmorales3142/nicksbreedbase).
+- The Docker compose will fetch the container images from this [DockerHub](https://hub.docker.com/repository/docker/imagebreed/imagebreed).
 
 - Access the Application: Once the container is running, you can access the application from your host at http://localhost:7080
 
