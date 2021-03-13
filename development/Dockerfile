@@ -7,6 +7,7 @@ ENV CPANMIRROR=http://cpan.cpantesters.org
 EXPOSE 8080
 
 RUN mkdir -p /home/production/public/sgn_static_content \
+    && mkdir -p /home/production/public/static_content \
     && mkdir -p /home/production/tmp/solgs \
     && mkdir -p /home/production/archive \
     && mkdir -p /home/production/public/images/image_files \
@@ -140,6 +141,9 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
     && add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" \
     && aptitude update \
     && aptitude install docker-ce -y
+
+# Copy static_content for example drone imagery (AlfalfaExample35MeterMicasenseAerialDroneFlightRawCaptures.zip and ExampleColorAerialDroneFlightRawCaptures.zip not included in Git repo)
+ADD public_static_content /home/production/public/static_content
 
 # Copy code repos. Run the prepare.pl script to clone them before the build
 ADD repos /home/production/cxgn

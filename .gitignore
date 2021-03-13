@@ -1,6 +1,8 @@
 sgn_local.conf
 repos
 repos_opencv
+AlfalfaExample35MeterMicasenseAerialDroneFlightRawCaptures.zip
+ExampleColorAerialDroneFlightRawCaptures.zip
 sgn
 cxgn-corelibs
 local-lib
