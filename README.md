@@ -92,10 +92,6 @@ Please note that post-V1 releases (e.g. V2, V3) of ImageBreed are not equivalent
 
 - In the `docker-compose.yml`, uncomment the bind mount for `var/run/docker.sock`. Then, in your `sgn_local.conf` set `enable_opendronemap 1` and make sure `hostpath_archive` is set to the directory where the archive mount lives on your host e.g. `/home/user` if the archive is mounted to `/home/user/archive` as defined in `docker-compose.yml`. Make sure your machine has at least 64GB of RAM.
 
-## Using ASREML-R Analyses
-
-- Activate ASREML-R using your license by first entering the running `breedbase_web` container using `docker exec -it breedbase_web bash`, then enter R by typing `R` followed by entering `library(asreml); asreml.license.activate();`. ASREML-R will then prompt you to type in your license code.
-
 ## Developing With This Container:
 
 - In the `docker-compose.yml` file you can mount the code directories you are developing, such as the sgn, DroneImageScripts, R_libs, perl-local-lib or other directories.
