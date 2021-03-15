@@ -4,7 +4,7 @@ Launch your own instance of [ImageBreed](https://imagebreed.org) to manage your 
 
 Please check the [changelog](https://github.com/nickmorales/breedbase_dockerfile/wiki/Changelog) for update information.
 
-For a quick tutorial of pieces of the aerial image phenotyping system, go to the [Phenome Force Workshop](https://www.youtube.com/watch?v=yLLaF7sS2Qs).
+For a tutorials of pieces of the aerial image phenotyping system, go to the [Phenome Force Workshop](https://www.youtube.com/watch?v=yLLaF7sS2Qs) and follow the [ImageBreed Channel](https://www.youtube.com/channel/UC1FYqz6kz9pE72sSHhG7ocQ).
 
 Please note that post-V1 releases (e.g. V2, V3) of ImageBreed are not equivalent to Breedbase and should be regarded as independent systems.
 
