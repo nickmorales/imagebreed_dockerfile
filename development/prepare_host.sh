@@ -39,7 +39,4 @@ chown www-data "$DIR/cluster"
 mkdir "$DIR/pgdata"
 chown postgres "$DIR/pgdata"
 
-mkdir "/home/production/tmp"
-chown www-data "/home/production/tmp"
-
 echo "Done."
