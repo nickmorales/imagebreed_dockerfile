@@ -72,7 +72,7 @@ Please note that post-V1 releases (e.g. V2, V3) of ImageBreed are not equivalent
 
 - When updating between versions (e.g. v1.3 to v1.4), first check the [changelog](https://github.com/nickmorales/breedbase_dockerfile/wiki/Changelog).
 
-- Beginning with the v4.0 release of this Docker, database patches should automatically be run on startup; however, if something goes wrong, the following commands can help. In the `docker-compose.yml`, make sure to set `RUN_DB_PATCHES=TRUE` and provide the database parameters, as is done in the provided `docker-compose.yml`.
+- Beginning with the v4.0 release of this Docker, database patches should automatically be run on startup. In the `docker-compose.yml`, make sure to set `RUN_DB_PATCHES=TRUE` and provide the database parameters, as is done in the provided `docker-compose.yml`.
 
 - If you need to manually run database patches, please view [the database patch wiki](https://github.com/nickmorales/breedbase_dockerfile/wiki/Database-Patches).
 
