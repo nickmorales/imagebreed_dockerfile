@@ -88,9 +88,9 @@ Please note that post-V1 releases (e.g. V2, V3) of ImageBreed are not equivalent
 
 ## Developing With This Container:
 
-- In the `docker-compose.yml` file you can mount the code directories you are developing, such as the sgn, DroneImageScripts, R_libs, perl-local-lib or other directories.
+- In the `docker-compose.yml` file you can mount the code directories you are developing, such as the sgn, DroneImageScripts, R_libs, perl-local-lib or other directories. If you mount the sgn directory, you must also mount in the sgn_local.conf file.
 
-- In the `docker-compose.yml` add in the environment section: `MODE=DEVELOPMENT`. This will restart the service whenever code changes are made to sgn or other core directories. Note, you may need to delete sgn/js/build and allow the application to rebuild this with the correct permissions; please allow up to 10 minutes for the JS to rebuild.
+- In the `docker-compose.yml` add in the environment section: `MODE=DEVELOPMENT`. This will restart the service whenever code changes are made to sgn or other core directories. Note, you may need to delete sgn/js/build and allow the application to rebuild this with the correct permissions; please allow up to 10 minutes for the JS to rebuild. Note, you may need to delete the sgn/static/documents/tempfiles directory.
 
 ## Manually Building the Image:
 
