@@ -1,4 +1,4 @@
-# ImageBreed v4.0 Now Released
+# ImageBreed v4.1 Now Released
 
 Launch your own instance of [ImageBreed](https://imagebreed.org) to manage your plant breeding field experiments, genotyping, aerial image phenotyping, and high-dimensional phenotyping (NIRS, transcriptomics, metabolomics)!
 
@@ -29,6 +29,8 @@ Please note that post-V1 releases (e.g. V2, V3) of ImageBreed are not equivalent
 - Logging In: The database has a user named `janedoe` with password `secretpw` for easy logging in from the web-interface.
 
 - Starting with an Empty Database: When starting the service, the database is named `empty_fixture` and is loaded with SQL from [Here](https://github.com/nickmorales/sgn/blob/master/t/data/fixture/empty_fixture.sql).
+
+- Note, if `RUN_DB_PATCHES=TRUE` in the `docker-compose.yml`, then the service will wait 1 minute before checking if all database patches have been run. The `RUN_DB_PATCHES=TRUE` option is important when updating between versions (e.g. V4.0 to V4.1) and can be set to FALSE when not needed to avoid waiting an additional minute.
 
 ### ImageBreed Configuration
 
