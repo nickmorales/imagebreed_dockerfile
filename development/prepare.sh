@@ -30,8 +30,8 @@ git clone --branch topic/debian_buster_R3.6.3_wASREMLR --depth 1 https://github.
 git clone https://github.com/solgenomics/python_virtual_environment repos/python_virtual_environment
 
 # OpenCV
-# git clone --branch 4.1.0 --depth 1 https://github.com/opencv/opencv repos_opencv/opencv
-# git clone --branch 4.1.0 --depth 1 https://github.com/opencv/opencv_contrib repos_opencv/opencv_contrib
+git clone --branch 4.1.0 --depth 1 https://github.com/opencv/opencv repos_opencv/opencv
+git clone --branch 4.1.0 --depth 1 https://github.com/opencv/opencv_contrib repos_opencv/opencv_contrib
 
 # Mason website skins
 git clone https://github.com/solgenomics/cassava.git repos/cassava
@@ -57,3 +57,7 @@ git clone https://github.com/solgenomics/panandbase.git repos/panandbase
 git clone https://github.com/solgenomics/triticum.git repos/triticum
 git clone https://github.com/solgenomics/gorelabbase.git repos/gorelabbbase
 git clone https://github.com/solgenomics/imagesol.git repos/imagesol
+
+#Get ImageBreed static content
+wget -P public_static_content/imagebreed https://imagebreed.org/static_content/imagebreed/AlfalfaExample35MeterMicasenseAerialDroneFlightRawCaptures.zip
+wget -P public_static_content/imagebreed https://imagebreed.org/static_content/imagebreed/ExampleColorAerialDroneFlightRawCaptures.zip
