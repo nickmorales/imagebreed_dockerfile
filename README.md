@@ -86,6 +86,8 @@ Please note that post-V1 releases (e.g. V2, V3) of ImageBreed are not equivalent
 
 ## Enabling OpenDroneMap Orthophotomosaic Stitching
 
+- Only works on Linux machines as far as I know. On Mac and Windows, Docker is installed with a GUI that creates symbolic links to /var/run/docker.sock, which causes problems when ImageBreed runs ODM. If you can install only the command line Docker this may work; check the permissions of and make sure there are no symbolic links to /var/run/docker.sock on your machine.
+
 - In the `docker-compose.yml`, uncomment the bind mount for `var/run/docker.sock`. Then, in your `sgn_local.conf` set `enable_opendronemap 1` and make sure `hostpath_archive` is set to the directory where the archive mount lives on your host e.g. `/home/user` if the archive is mounted to `/home/user/archive` as defined in `docker-compose.yml`. Make sure your machine has at least 64GB of RAM. You can also change `opendronemap_max_processes` to allow for greater numbers of parallel OpenDroneMap processes, if your hardware is capable.
 
 ## Developing With This Container:
