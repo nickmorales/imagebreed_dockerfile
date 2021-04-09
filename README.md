@@ -28,7 +28,7 @@ Please note that post-V1 releases (e.g. V2, V3) of ImageBreed are not equivalent
 
 - Logging In: The database has a user named `janedoe` with password `secretpw` for easy logging in from the web-interface.
 
-- Starting with an Empty Database: When starting the service, the database is named `empty_fixture` and is loaded with SQL from [Here](https://github.com/nickmorales/sgn/blob/master/t/data/fixture/empty_fixture.sql).
+- Starting with an Empty Database: When starting the service, the database is named `empty_fixture` and is loaded with SQL from [Here](https://github.com/nickmorales/imagebreed/blob/master/t/data/fixture/empty_fixture.sql).
 
 - Note, if `RUN_DB_PATCHES=TRUE` in the `docker-compose.yml`, then the service will wait 1 minute before checking if all database patches have been run. The `RUN_DB_PATCHES=TRUE` option is important when updating between versions (e.g. V4.0 to V4.1) and can be set to FALSE when not needed to avoid waiting an additional minute.
 
@@ -84,7 +84,7 @@ Please note that post-V1 releases (e.g. V2, V3) of ImageBreed are not equivalent
 
 ## Using a Local PostgreSQL Database:
 
-- The provided `docker-compose.yml` will launch a `breedbase_web` and `breedbase_db` container. If you prefer to install PostgreSQL on your host machine and avoid using the `breedbase_db` Docker, you can comment out the associated breedbase_db lines in the `docker-compose.yml`. This requires adjusting your `sgn_local.conf` to point to your host database, and adjusting your `postgresql.conf` and `pg_hba.conf` configuration to work in this network configuration. You can load SQL from [SGN](https://github.com/nickmorales/sgn/blob/master/t/data/fixture/empty_fixture.sql) as a starting point for your host database.
+- The provided `docker-compose.yml` will launch a `breedbase_web` and `breedbase_db` container. If you prefer to install PostgreSQL on your host machine and avoid using the `breedbase_db` Docker, you can comment out the associated breedbase_db lines in the `docker-compose.yml`. This requires adjusting your `sgn_local.conf` to point to your host database, and adjusting your `postgresql.conf` and `pg_hba.conf` configuration to work in this network configuration. You can load SQL from [SGN](https://github.com/nickmorales/imagebreed/blob/master/t/data/fixture/empty_fixture.sql) as a starting point for your host database.
 
 ## Enabling OpenDroneMap Orthophotomosaic Stitching
 

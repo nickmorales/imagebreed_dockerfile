@@ -24,7 +24,7 @@ services:
     #    source: ./development/sgn_local_docker.conf
     #    target: /home/production/cxgn/sgn/sgn_local.conf
     #  - type: bind
-    #    source: ${HOME}/cxgn/sgn
+    #    source: ${HOME}/nickmorales/imagebreed
     #    target: /home/production/cxgn/sgn
     #  - type: bind
     #    source: ${HOME}/cxgn/DroneImageScripts
