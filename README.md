@@ -6,7 +6,7 @@ Please check the [changelog](https://github.com/nickmorales/imagebreed_dockerfil
 
 For a tutorials of pieces of the aerial image phenotyping system, go to the [Phenome Force Workshop](https://www.youtube.com/watch?v=yLLaF7sS2Qs) and follow the [ImageBreed Channel](https://www.youtube.com/channel/UC1FYqz6kz9pE72sSHhG7ocQ).
 
-Now integrated with OpenDroneMap for creating orthophotomosaics directly into the database!
+Now integrated with [OpenDroneMap](https://www.opendronemap.org/odm/) for creating orthophotomosaics directly into the database!
 
 ### Prerequisites
 
