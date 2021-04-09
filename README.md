@@ -2,11 +2,11 @@
 
 Launch your own instance of [ImageBreed](https://imagebreed.org) to manage your plant breeding field experiments, genotyping, aerial image phenotyping, and high-dimensional phenotyping (NIRS, transcriptomics, metabolomics)!
 
-Please check the [changelog](https://github.com/nickmorales/breedbase_dockerfile/wiki/Changelog) for update information.
+Please check the [changelog](https://github.com/nickmorales/imagebreed_dockerfile/wiki/Changelog) for update information.
 
 For a tutorials of pieces of the aerial image phenotyping system, go to the [Phenome Force Workshop](https://www.youtube.com/watch?v=yLLaF7sS2Qs) and follow the [ImageBreed Channel](https://www.youtube.com/channel/UC1FYqz6kz9pE72sSHhG7ocQ).
 
-Please note that post-V1 releases (e.g. V2, V3) of ImageBreed are not equivalent to Breedbase and should be regarded as independent systems.
+Now integrated with OpenDroneMap for creating orthophotomosaics directly into the database!
 
 ### Prerequisites
 
@@ -72,15 +72,15 @@ Please note that post-V1 releases (e.g. V2, V3) of ImageBreed are not equivalent
 
 ## Updating Between Versions of This Docker Deployment:
 
-- When updating between versions (e.g. v1.3 to v1.4), first check the [changelog](https://github.com/nickmorales/breedbase_dockerfile/wiki/Changelog).
+- When updating between versions (e.g. v1.3 to v1.4), first check the [changelog](https://github.com/nickmorales/imagebreed_dockerfile/wiki/Changelog).
 
 - To update, simply change the image ID in the `docker-compose.yml`. For example, to update from v4.0 to v4.1, you should change `imagebreed/imagebreed:4.0` and `imagebreed/imagebreedpg:4.0` to show 4.1 instead of 4.0.
 
 - Beginning with the v4.0 release of this Docker, database patches should automatically be run on startup. In the `docker-compose.yml`, make sure to set `RUN_DB_PATCHES=TRUE` and provide the database parameters, as is done in the provided `docker-compose.yml`. Note, setting `RUN_DB_PATCHES=TRUE` will cause the service to wait 1 minute prior to checking the database patches, so this should be set to FALSE when an update in versions (e.g. v4.0 to v4.1) is not underway.
 
-- If you need to manually run database patches, please view [the database patch wiki](https://github.com/nickmorales/breedbase_dockerfile/wiki/Database-Patches).
+- If you need to manually run database patches, please view [the database patch wiki](https://github.com/nickmorales/imagebreed_dockerfile/wiki/Database-Patches).
 
-- If there are ontology updates or a new ontology to load into the database, please view [the ontology update wiki](https://github.com/nickmorales/breedbase_dockerfile/wiki/Ontology-Updates).
+- If there are ontology updates or a new ontology to load into the database, please view [the ontology update wiki](https://github.com/nickmorales/imagebreed_dockerfile/wiki/Ontology-Updates).
 
 ## Using a Local PostgreSQL Database:
 
