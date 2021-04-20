@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   breedbase:
-    image: imagebreed/imagebreed:4.4
+    image: imagebreed/imagebreed:4.5
     restart: always
     depends_on:
       - breedbase_db
@@ -13,7 +13,7 @@ services:
     environment:
       - PGPASSFILE=/home/production/.pgpass
     #  - MODE=DEVELOPMENT
-      - RUN_DB_PATCHES=TRUE
+    #  - RUN_DB_PATCHES=TRUE
       - DATABASE_HOST=breedbase_db
       - DATABASE_NAME=empty_fixture
       - DATABASE_USER=postgres
@@ -61,7 +61,7 @@ services:
     #    source: /var/run/docker.sock
     #    target: /var/run/docker.sock
   breedbase_db:
-    image: imagebreed/imagebreedpg:4.4
+    image: imagebreed/imagebreedpg:4.5
     restart: always
     container_name: breedbase_db
     #volumes:
