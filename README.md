@@ -74,8 +74,6 @@ Now integrated with [OpenDroneMap](https://www.opendronemap.org/odm/) for creati
 
 - When updating between versions (e.g. v1.3 to v1.4), first check the [changelog](https://github.com/nickmorales/imagebreed_dockerfile/wiki/Changelog).
 
-- To update, simply change the image ID in the `docker-compose.yml`. For example, to update from v4.0 to v4.1, you should change `imagebreed/imagebreed:4.0` and `imagebreed/imagebreedpg:4.0` to show 4.1 instead of 4.0.
-
 - Beginning with the v4.0 release of this Docker, database patches should automatically be run on startup. In the `docker-compose.yml`, make sure to set `RUN_DB_PATCHES=TRUE` and provide the database parameters, as is done in the provided `docker-compose.yml`. Note, setting `RUN_DB_PATCHES=TRUE` will cause the service to wait 1 minute prior to checking the database patches, so this should be set to FALSE when an update in versions (e.g. v4.0 to v4.1) is not underway.
 
 - If you need to manually run database patches, please view [the database patch wiki](https://github.com/nickmorales/imagebreed_dockerfile/wiki/Database-Patches).
