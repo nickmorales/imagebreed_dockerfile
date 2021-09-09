@@ -56,7 +56,7 @@ git clone https://github.com/solgenomics/vitisbase.git repos/vitisbase
 git clone https://github.com/solgenomics/panandbase.git repos/panandbase
 git clone https://github.com/solgenomics/triticum.git repos/triticum
 git clone https://github.com/solgenomics/gorelabbase.git repos/gorelabbbase
-git clone https://github.com/solgenomics/imagesol.git repos/imagesol
+git clone https://github.com/nickmorales/imagesol.git repos/imagesol
 
 #Get ImageBreed static content
 wget -P public_static_content/imagebreed https://imagebreed.org/static_content/imagebreed/AlfalfaExample35MeterMicasenseAerialDroneFlightRawCaptures.zip
