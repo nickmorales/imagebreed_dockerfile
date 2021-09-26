@@ -22,6 +22,7 @@ RUN mkdir -p /home/production/public/sgn_static_content \
     && mkdir -p /home/production/cache \
     && chown -R www-data /home/production/cache \
     && mkdir /etc/starmachine \
+    && mkdir /etc/postfix \
     && mkdir /var/log/sgn
 
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
@@ -30,8 +31,11 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
     && apt-get install build-essential pkg-config apt-utils gnupg2 curl -y \
     && apt-get update -y
 
+COPY postfix.main.cf /etc/postfix/main.cf
+
 RUN apt-get install -y aptitude
 RUN aptitude install -y libterm-readline-zoid-perl nginx starman emacs gedit vim less sudo htop git dkms perl-doc ack-grep make xutils-dev nfs-common lynx xvfb ncbi-blast+ libmunge-dev libmunge2 munge slurm-wlm slurmctld slurmd libslurm-perl libssl-dev graphviz lsof imagemagick mrbayes muscle bowtie bowtie2 blast2 postfix mailutils libcupsimage2 libglib2.0-dev libglib2.0-bin screen apt-transport-https wget
+RUN service postfix reload
 
 # Required for R-package spdep, dependencies of agricolae
 # Java for Tassel
@@ -53,8 +57,8 @@ RUN chmod 777 /var/spool/ \
     && echo 'Y' | /usr/sbin/create-munge-key \
     && ln -s /var/lib/slurm-llnl /var/lib/slurm
 
-# R 3.6.3
-RUN apt-key adv --keyserver keys.gnupg.net --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF' \
+# R 3.6.3 -- keyserver was keys.gnupg.net
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF' \
     && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/debian buster-cran35/' \
     && aptitude update -y \
     && aptitude install r-base r-base-dev libopenblas-base -y
@@ -81,6 +85,7 @@ RUN aptitude install -y python3-virtualenv \
     && pip3 install imutils matplotlib pillow statistics PyExifTool pytz pysolar scikit-image scikit-learn packaging pyzbar pandas tensorflow numpy rasterio \
     && pip3 install opencv-python \
     && pip3 install -U keras-tuner \
+    && pip3 install setuptools==57.5.0 \
     && pip3 install GDAL==$(gdal-config --version) --global-option=build_ext --global-option="-I/usr/include/gdal"
 
 # Copy OPENCV code repos. Run the prepare.pl script to clone them before the build
@@ -147,6 +152,7 @@ ADD public_static_content /home/production/public/static_content
 
 # Copy code repos. Run the prepare.pl script to clone them before the build
 ADD repos /home/production/cxgn
+ADD repos_dev /home/production/cxgn
 
 # RUN g++ /home/production/cxgn/DroneImageScripts/cpp/stitching_multi.cpp -o /usr/bin/stitching_multi `pkg-config opencv4 --cflags --libs` \
 #    && g++ /home/production/cxgn/DroneImageScripts/cpp/stitching_single.cpp -o /usr/bin/stitching_single `pkg-config opencv4 --cflags --libs`

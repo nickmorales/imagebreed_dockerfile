@@ -1,11 +1,16 @@
 #!/bin/bash
 
+mkdir repos_dev
 mkdir repos
 mkdir repos_opencv
 
-# main code
+# imagebreed dev code
+git clone --branch master --depth 1 https://github.com/nickmorales/imagebreed.git  repos_dev/sgn
+git clone https://github.com/solgenomics/DroneImageScripts.git repos_dev/DroneImageScripts
+git clone https://github.com/nickmorales/imagesol.git repos_dev/imagesol
+
+# core code
 git clone --branch topic/metadata_schema_fixes --depth 1 https://github.com/solgenomics/cxgn-corelibs.git repos/cxgn-corelibs
-git clone --branch master --depth 1 https://github.com/nickmorales/imagebreed.git  repos/sgn
 git clone https://github.com/solgenomics/Phenome.git repos/Phenome
 git clone https://github.com/solgenomics/rPackages.git repos/rPackages
 git clone https://github.com/solgenomics/biosource.git repos/biosource
@@ -20,7 +25,6 @@ git clone https://github.com/solgenomics/starmachine.git repos/starmachine
 git clone https://github.com/GMOD/Chado repos/Chado
 git clone https://github.com/GMOD/chado_tools repos/chado_tools
 git clone https://github.com/GMOD/Bio-Chado-Schema repos/Bio-Chado-Schema
-git clone https://github.com/solgenomics/DroneImageScripts.git repos/DroneImageScripts
 git clone https://github.com/solgenomics/Tea.git repos/Tea
 git clone https://bitbucket.org/tasseladmin/tassel-5-standalone.git repos/tassel-5-standalone
 
@@ -56,8 +60,8 @@ git clone https://github.com/solgenomics/vitisbase.git repos/vitisbase
 git clone https://github.com/solgenomics/panandbase.git repos/panandbase
 git clone https://github.com/solgenomics/triticum.git repos/triticum
 git clone https://github.com/solgenomics/gorelabbase.git repos/gorelabbbase
-git clone https://github.com/nickmorales/imagesol.git repos/imagesol
 
 #Get ImageBreed static content
 wget -P public_static_content/imagebreed https://imagebreed.org/static_content/imagebreed/AlfalfaExample35MeterMicasenseAerialDroneFlightRawCaptures.zip
 wget -P public_static_content/imagebreed https://imagebreed.org/static_content/imagebreed/ExampleColorAerialDroneFlightRawCaptures.zip
+wget -P public_static_content/imagebreed https://imagebreed.org/static_content/imagebreed/RiceExampleRGBandDSMOrthophotosGeoTIFFs.zip

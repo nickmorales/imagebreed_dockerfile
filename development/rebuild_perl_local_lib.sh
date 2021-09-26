@@ -131,3 +131,4 @@ sudo cpanm -L perl-local-lib/ Bio::BLAST::Database
 sudo cpanm -L perl-local-lib/ Parallel::ForkManager
 sudo cpanm -L perl-local-lib/ Math::Polygon
 sudo cpanm -L perl-local-lib/ Email::Send::SMTP::Gmail
+sudo cpanm -L perl-local-lib/ Hash::Case::Preserve

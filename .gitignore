@@ -1,5 +1,6 @@
 sgn_local.conf
 repos
+repos_dev
 repos_opencv
 AlfalfaExample35MeterMicasenseAerialDroneFlightRawCaptures.zip
 ExampleColorAerialDroneFlightRawCaptures.zip
