@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   breedbase:
-    image: imagebreed/imagebreed:6.2
+    image: imagebreed/imagebreed:6.3
     restart: always
     depends_on:
       - breedbase_db
@@ -61,7 +61,7 @@ services:
     #    source: /var/run/docker.sock
     #    target: /var/run/docker.sock
   breedbase_db:
-    image: imagebreed/imagebreedpg:6.2
+    image: imagebreed/imagebreedpg:6.3
     restart: always
     container_name: breedbase_db
     #volumes:
