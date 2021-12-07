@@ -57,8 +57,8 @@ RUN chmod 777 /var/spool/ \
     && echo 'Y' | /usr/sbin/create-munge-key \
     && ln -s /var/lib/slurm-llnl /var/lib/slurm
 
-# R 3.6.3 -- keyserver was keys.gnupg.net
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key 'E19F5F87128899B192B1A2C2AD5F960A256A04AF' \
+# R 3.6.3 -- keyservers: keys.gnupg.net, hkp://keyserver.ubuntu.com:80, keyserver.ubuntu.com
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-key '95C0FAF38DB3CCAD0C080A7BDC78B2DDEABC47B7' \
     && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/debian buster-cran35/' \
     && aptitude update -y \
     && aptitude install r-base r-base-dev libopenblas-base -y

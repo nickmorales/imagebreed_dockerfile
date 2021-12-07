@@ -1,4 +1,4 @@
-# ImageBreed v6.3 Now Released
+# ImageBreed v7.0 Now Released
 
 Launch your own instance of [ImageBreed](https://imagebreed.org) to manage your plant breeding field experiments, genotyping, aerial image phenotyping, and high-dimensional phenotyping (NIRS, transcriptomics, metabolomics)!
 
@@ -72,13 +72,11 @@ Now integrated with [OpenDroneMap](https://www.opendronemap.org/odm/) for creati
 
 ## Updating Between Versions of This Docker Deployment:
 
-- When updating between versions (e.g. v1.3 to v1.4), first check the [changelog](https://github.com/nickmorales/imagebreed_dockerfile/wiki/Changelog).
+- When updating between versions, first check the [changelog](https://github.com/nickmorales/imagebreed_dockerfile/wiki/Changelog). Simply change the imagebreed and imagebreedpg image versions in the `docker-compose.yml` e.g. imagebreed/imagebreed:v6.2 to imagebreed/imagebreed:v6.3. Then start the Docker containers using `docker-compose up -d`.
 
-- Beginning with the v4.0 release of this Docker, database patches should automatically be run on startup. In the `docker-compose.yml`, make sure to set `RUN_DB_PATCHES=TRUE` and provide the database parameters, as is done in the provided `docker-compose.yml`. Note, setting `RUN_DB_PATCHES=TRUE` will cause the service to wait 1 minute prior to checking the database patches, so this should be set to FALSE when an update in versions (e.g. v4.0 to v4.1) is not underway.
+- Beginning with the v7.0 release of this Docker, ontology updates should automatically be run on startup. In the `docker-compose.yml` make sure to set `RUN_DB_ONTOLOGY_UPDATES=TRUE` and provide the database parameters as is done in the provided example. Beginning with v4.0, database patches should automatically be run on startup. In the `docker-compose.yml` make sure to set `RUN_DB_PATCHES=TRUE` and provide the database parameters. Note, setting either of these keys to TRUE will cause the service to wait 1 minute, so to save time this should be set to FALSE when an update in versions is not underway.
 
-- If you need to manually run database patches, please view [the database patch wiki](https://github.com/nickmorales/imagebreed_dockerfile/wiki/Database-Patches).
-
-- If there are ontology updates or a new ontology to load into the database, please view [the ontology update wiki](https://github.com/nickmorales/imagebreed_dockerfile/wiki/Ontology-Updates).
+- If you need to manually run database patches or load new ontologies, please view [the database patch wiki](https://github.com/nickmorales/imagebreed_dockerfile/wiki/Database-Patches) and [the ontology update wiki](https://github.com/nickmorales/imagebreed_dockerfile/wiki/Ontology-Updates).
 
 ## Using a Local PostgreSQL Database:
 

@@ -6,10 +6,25 @@ sed -i s/localhost/$HOSTNAME/g /etc/slurm-llnl/slurm.conf
 /etc/init.d/slurmd start
 /etc/init.d/postgresql start
 
-if [ "$RUN_DB_PATCHES" == "TRUE" ]; then
+if [[ "$RUN_DB_PATCHES" == "TRUE" || "$RUN_DB_ONTOLOGY_UPDATES" == "TRUE" ]];
+then
     sleep 1m
-    cd /home/production/cxgn/sgn/db/ && bash -c "echo -ne $DATABASE_PASSWORD | ./run_all_patches.pl -h $DATABASE_HOST -d $DATABASE_NAME -u $DATABASE_USER -p $DATABASE_PASSWORD -e $DATABASE_OPERATOR"
-    cd /home/production/cxgn/sgn
+
+    if [ "$RUN_DB_PATCHES" == "TRUE" ]; then
+        cd /home/production/cxgn/sgn/db/ && bash -c "echo -ne $DATABASE_PASSWORD | ./run_all_patches.pl -h $DATABASE_HOST -d $DATABASE_NAME -u $DATABASE_USER -p $DATABASE_PASSWORD -e $DATABASE_OPERATOR"
+        cd /home/production/cxgn/sgn
+    fi
+
+    if [ "$RUN_DB_ONTOLOGY_UPDATES" == "TRUE" ]; then
+        perl /home/production/cxgn/Chado/chado/bin/gmod_load_cvterms.pl -H $DATABASE_HOST -D $DATABASE_NAME -u -s SGNSTAT -d Pg -r $DATABASE_USER -p $DATABASE_PASSWORD /home/production/cxgn/sgn/ontology/cxgn_statistics.obo
+        perl /home/production/cxgn/Chado/chado/bin/gmod_load_cvterms.pl -H $DATABASE_HOST -D $DATABASE_NAME -u -s TIME -d Pg -r $DATABASE_USER -p $DATABASE_PASSWORD /home/production/cxgn/sgn/ontology/cxgn_time.obo
+        perl /home/production/cxgn/Chado/chado/bin/gmod_load_cvterms.pl -H $DATABASE_HOST -D $DATABASE_NAME -u -s UO -d Pg -r $DATABASE_USER -p $DATABASE_PASSWORD /home/production/cxgn/sgn/ontology/cxgn_units.obo
+        perl /home/production/cxgn/Chado/chado/bin/gmod_load_cvterms.pl -H $DATABASE_HOST -D $DATABASE_NAME -u -s ISOL -d Pg -r $DATABASE_USER -p $DATABASE_PASSWORD /home/production/cxgn/sgn/ontology/imagesol.obo
+        perl /home/production/cxgn/Chado/chado/bin/gmod_load_cvterms.pl -H $DATABASE_HOST -D $DATABASE_NAME -u -s G2F -d Pg -r $DATABASE_USER -p $DATABASE_PASSWORD /home/production/cxgn/sgn/ontology/G2F.obo
+        perl /home/production/cxgn/Chado/chado/bin/gmod_load_cvterms.pl -H $DATABASE_HOST -D $DATABASE_NAME -u -s ALF -d Pg -r $DATABASE_USER -p $DATABASE_PASSWORD /home/production/cxgn/sgn/ontology/Alfalfa.obo
+
+        perl /home/production/cxgn/sgn/bin/ensure_only_one_variable_of_cvterm.pl -H $DATABASE_HOST -D $DATABASE_NAME -U $DATABASE_USER -P $DATABASE_PASSWORD
+    fi
 fi
 
 if [ "$MODE" == "DEVELOPMENT" ]; then
