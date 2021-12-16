@@ -1,4 +1,4 @@
-# ImageBreed v7.1 Now Released
+# ImageBreed v7.2 Now Released
 
 Launch your own instance of [ImageBreed](https://imagebreed.org) to manage your plant breeding field experiments, genotyping, aerial image phenotyping, and high-dimensional phenotyping (NIRS, transcriptomics, metabolomics)!
 
@@ -102,4 +102,4 @@ Alternatively, the docker image can be built from scratch. This is recommended i
 
 - Build the images on your host with `docker build -t breedbase_image .`
 
-### Please [support](https://patreon.com/nmorales) if you find this open-source software useful!
+### Please [support](https://patreon.com/nmorales) or [Buy ImageBreed a Coffee](https://www.buymeacoffee.com/imagebreed) if you find this open-source software useful!
