@@ -44,6 +44,7 @@ R -e "install.packages('ggthemes', dependencies=TRUE, repos='http://cran.rstudio
 R -e "install.packages('GGally', dependencies=TRUE, repos='http://cran.rstudio.com/')"
 R -e "install.packages('gridExtra', dependencies=TRUE, repos='http://cran.rstudio.com/')"
 R -e "install.packages('tidyverse', dependencies=TRUE, repos='http://cran.rstudio.com/')"
+R -e "install.packages('blocksdesign', dependencies=TRUE, repos='http://cran.rstudio.com/')"
 R -e "install.packages('tools/asreml/asreml_Ubuntu-18_4.1.0.126.tar.gz', repos=NULL)"
 R -e 'BiocManager::install();BiocManager::install(c("gdsfmt", "SNPRelate"))'
 R -e 'library("devtools");install_github("cran/R.methodsS3");install_github("solgenomics/rPackages/genoDataFilter");install_github("solgenomics/rPackages/phenoAnalysis");install_github("reyzaguirre/st4gi")'
