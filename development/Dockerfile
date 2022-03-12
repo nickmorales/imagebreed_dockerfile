@@ -1,8 +1,10 @@
-FROM debian:buster
+FROM debian:bullseye
 
 LABEL maintainer="nm529@cornell.edu"
+LABEL main_version="8"
 
 ENV CPANMIRROR=http://cpan.cpantesters.org
+ENV TZ UTC
 
 EXPOSE 8080
 
@@ -34,12 +36,11 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 COPY postfix.main.cf /etc/postfix/main.cf
 
 RUN apt-get install -y aptitude
-RUN aptitude install -y libterm-readline-zoid-perl nginx starman emacs gedit vim less sudo htop git dkms perl-doc ack-grep make xutils-dev nfs-common lynx xvfb ncbi-blast+ libmunge-dev libmunge2 munge slurm-wlm slurmctld slurmd libslurm-perl libssl-dev graphviz lsof imagemagick mrbayes muscle bowtie bowtie2 blast2 postfix mailutils libcupsimage2 libglib2.0-dev libglib2.0-bin screen apt-transport-https wget
-RUN service postfix reload
+RUN aptitude install -y libterm-readline-zoid-perl nginx starman emacs gedit vim less sudo htop git dkms perl-doc ack-grep make xutils-dev nfs-common lynx xvfb ncbi-blast+ libmunge-dev libmunge2 munge slurm-wlm slurmctld slurmd libslurm-perl libssl-dev graphviz lsof imagemagick mrbayes muscle bowtie bowtie2 postfix mailutils libcupsimage2 libglib2.0-dev libglib2.0-bin screen apt-transport-https wget libnlopt-dev
 
 # Required for R-package spdep, dependencies of agricolae
 # Java for Tassel
-RUN aptitude install libgdal-dev libproj-dev libudunits2-dev dirmngr software-properties-common libgfortran-8-dev libicu-dev libgit2-dev -y \
+RUN aptitude install libgdal-dev libproj-dev libgeos-dev libudunits2-dev dirmngr software-properties-common libgfortran-10-dev libicu-dev libgit2-dev -y \
     && aptitude install default-jre default-jdk -y
 
 # Postgres 12
@@ -54,12 +55,11 @@ RUN curl -L https://cpanmin.us | perl - --sudo App::cpanminus
 RUN chmod 777 /var/spool/ \
     && mkdir /var/spool/slurmstate \
     && chown slurm:slurm /var/spool/slurmstate/ \
-    && echo 'Y' | /usr/sbin/create-munge-key \
     && ln -s /var/lib/slurm-llnl /var/lib/slurm
 
-# R 3.6.3 -- keyservers: keys.gnupg.net, hkp://keyserver.ubuntu.com:80, keyserver.ubuntu.com
+# R 4.1.2 -- keyservers: keys.gnupg.net, hkp://keyserver.ubuntu.com:80, keyserver.ubuntu.com
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-key '95C0FAF38DB3CCAD0C080A7BDC78B2DDEABC47B7' \
-    && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/debian buster-cran35/' \
+    && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/debian bullseye-cran40/' \
     && aptitude update -y \
     && aptitude install r-base r-base-dev libopenblas-base -y
 
@@ -71,10 +71,12 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-key '95C0FAF38DB3CCAD0C0
 # MooseX::Runnable Perl module needs this: libmoosex-runnable-perl
 RUN aptitude install -y libexpat1-dev libcatalyst-controller-html-formfu-perl libcairo2-dev libgd-dev libpq-dev libmoosex-runnable-perl libgdbm6 libgdm-dev
 
-RUN aptitude install nodejs npm -y
+RUN aptitude install nodejs npm -y \
+    && npm install -g n \
+    && n 10.24.1
 
-#INSTALL OPENCV IMAGING LIBRARY
-RUN aptitude install -y python3-dev python-pip python3-pip python-numpy
+# INSTALL OPENCV IMAGING LIBRARY
+RUN aptitude install -y python3-dev python3-pip python3-numpy
 RUN aptitude install -y libgtk2.0-dev libgtk-3-0 libgtk-3-dev libavcodec-dev libavformat-dev libswscale-dev libhdf5-serial-dev libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libxvidcore-dev libatlas-base-dev gfortran exiftool libzbar-dev cmake
 
 RUN aptitude install -y python3-virtualenv \
@@ -85,13 +87,13 @@ RUN aptitude install -y python3-virtualenv \
     && pip3 install imutils matplotlib pillow statistics PyExifTool pytz pysolar scikit-image scikit-learn packaging pyzbar pandas tensorflow numpy rasterio \
     && pip3 install opencv-python \
     && pip3 install -U keras-tuner \
-    && pip3 install setuptools==57.5.0 \
-    && pip3 install GDAL==$(gdal-config --version) --global-option=build_ext --global-option="-I/usr/include/gdal"
+    && pip3 install GDAL==$(gdal-config --version) --global-option=build_ext --global-option="-I/usr/include/gdal" \
+    && pip3 install open3d
 
 # Copy OPENCV code repos. Run the prepare.pl script to clone them before the build
 # ADD repos_opencv /home/production/cxgn
 
-#RUN . /home/production/cv/bin/activate \
+# RUN . /home/production/cv/bin/activate \
 #    && cd /home/production/cxgn/opencv \
 #    && mkdir build \
 #    && cd /home/production/cxgn/opencv/build \
@@ -108,10 +110,10 @@ RUN aptitude install -y python3-virtualenv \
 #    && make install \
 #    && ldconfig
 
-#RUN mv /usr/local/lib/python3.7/site-packages/cv2/python-3.7/cv2.cpython-37m-x86_64-linux-gnu.so /usr/local/lib/python3.7/site-packages/cv2/python-3.7/cv2.so \
+# RUN mv /usr/local/lib/python3.7/site-packages/cv2/python-3.7/cv2.cpython-37m-x86_64-linux-gnu.so /usr/local/lib/python3.7/site-packages/cv2/python-3.7/cv2.so \
 #    && ln -s /usr/local/lib/python3.7/site-packages/cv2/python-3.7/cv2.so /home/production/cv/lib/python3.7/site-packages/cv2.so
 
-#RUN python3 -m virtualenv --python=/usr/bin/python3 /home/production/mrcnn \
+# RUN python3 -m virtualenv --python=/usr/bin/python3 /home/production/mrcnn \
 #    && . /home/production/mrcnn/bin/activate \
 #    && pip3 install tensorflow==1.5.0 keras==2.1.5 "numpy<1.17" scipy matplotlib scikit-image Pillow cython h5py imgaug IPython[all] "six>=1.15.0" \
 #    && git clone https://github.com/matterport/Mask_RCNN.git \
@@ -121,15 +123,15 @@ RUN aptitude install -y python3-virtualenv \
 #    && python3 setup.py install
 
 # INSTALL REML F90 SUITE
-#RUN wget -r -np -R "index.html*" http://nce.ads.uga.edu/html/projects/programs/Linux/64bit_AMD/ \
+# RUN wget -r -np -R "index.html*" http://nce.ads.uga.edu/html/projects/programs/Linux/64bit_AMD/ \
 #    && chmod 777 nce.ads.uga.edu/html/projects/programs/Linux/64bit_AMD/* \
 #    && scp nce.ads.uga.edu/html/projects/programs/Linux/64bit_AMD/* /usr/local/bin
 COPY tools/remlf90/* /usr/local/bin/
 
 # INSTALL ASREML
-#RUN mkdir -p /opt/vsn/asreml/4.x.0.b
-#COPY tools/asreml /opt/vsn/asreml/4.x.0.b/
-#RUN ln -s /opt/vsn/asreml/4.x.0.b /opt/vsn/asreml/latest \
+# RUN mkdir -p /opt/vsn/asreml/4.x.0.b
+# COPY tools/asreml /opt/vsn/asreml/4.x.0.b/
+# RUN ln -s /opt/vsn/asreml/4.x.0.b /opt/vsn/asreml/latest \
 #    && ln -s /opt/vsn/asreml/latest/bin/asreml.sh /bin/asreml \
 #    && ln -s /opt/vsn/asreml/latest/bin/asreml_select.sh /bin/asreml_select
 
@@ -151,14 +153,13 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
 ADD public_static_content /home/production/public/static_content
 
 # Copy code repos. Run the prepare.pl script to clone them before the build
-ADD repos /home/production/cxgn
-ADD repos_dev /home/production/cxgn
+ADD repos repos_dev /home/production/cxgn/
 
 # RUN g++ /home/production/cxgn/DroneImageScripts/cpp/stitching_multi.cpp -o /usr/bin/stitching_multi `pkg-config opencv4 --cflags --libs` \
 #    && g++ /home/production/cxgn/DroneImageScripts/cpp/stitching_single.cpp -o /usr/bin/stitching_single `pkg-config opencv4 --cflags --libs`
 
 COPY sgn_local_docker.conf /home/production/cxgn/sgn/sgn_local.conf
-COPY slurm.conf /etc/slurm-llnl/slurm.conf
+COPY slurm.conf /etc/slurm/slurm.conf
 COPY sgn_local_docker.conf /home/production/cxgn/sgn/
 COPY starmachine.conf /etc/starmachine/
 
@@ -171,8 +172,8 @@ ENV PGPASSFILE=/home/production/.pgpass
 RUN echo "R_LIBS_USER=/home/production/cxgn/R_libs" >> /etc/R/Renviron
 ENV R_LIBS_USER=/home/production/cxgn/R_libs
 
-RUN bash /home/production/cxgn/sgn/js/install_node.sh \
-    && apt -y autoremove
+# RUN bash /home/production/cxgn/sgn/js/install_node.sh \
+#    && apt -y autoremove
 
 COPY entrypoint.sh /entrypoint.sh
 RUN ln -s /home/production/cxgn/starmachine/bin/starmachine_init.d /etc/init.d/sgn
