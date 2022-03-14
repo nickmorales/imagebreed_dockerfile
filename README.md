@@ -10,7 +10,7 @@ Now integrated with [OpenDroneMap](https://www.opendronemap.org/odm/) for creati
 
 ### Prerequisites
 
-- You need Docker, docker-compose, and nginx installed on a machine with at least 8GB RAM and 50GB of disk. Though it is not necessary, ideally, the computer has >8 CPU cores, >96GB RAM, and >4TB disk space, and the disk space should be fast (Thunderbolt if NAS used).
+- You need Docker, docker-compose, and nginx installed on a machine with at least 8GB RAM and 50GB of disk. Though it is not necessary, ideally, the computer has >8 CPU cores, >96GB RAM, and >4TB disk space, and the disk space should be fast (Thunderbolt if NAS used). Check the speed of your disks and [ensure a write speed >1 GB/s](https://github.com/nickmorales/imagebreed_dockerfile/wiki/Check-Disk-Speed).
 
 ## Start the Service:
 
