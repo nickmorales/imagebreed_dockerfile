@@ -82,6 +82,8 @@ Now integrated with [OpenDroneMap](https://www.opendronemap.org/odm/) for creati
 
 - The provided `docker-compose.yml` will launch a `breedbase_web` and `breedbase_db` container. If you prefer to install PostgreSQL on your host machine and avoid using the `breedbase_db` Docker, you can comment out the associated breedbase_db lines in the `docker-compose.yml`. This requires adjusting your `sgn_local.conf` to point to your host database, and adjusting your `postgresql.conf` and `pg_hba.conf` configuration to work in this network configuration. You can load SQL from [SGN](https://github.com/nickmorales/imagebreed/blob/master/t/data/fixture/empty_fixture.sql) as a starting point for your host database.
 
+- If you choose to not use the database Docker, please use PostgreSQL version 12.
+
 ## Enabling OpenDroneMap Orthophotomosaic Stitching
 
 - Only works on Linux machines as far as I know. On Mac and Windows, Docker is installed with a GUI that creates symbolic links to /var/run/docker.sock, which causes problems when ImageBreed runs ODM. If you can install only the command line Docker this may work; check the permissions of and make sure there are no symbolic links to /var/run/docker.sock on your machine.
