@@ -10,7 +10,9 @@ Now integrated with [OpenDroneMap](https://www.opendronemap.org/odm/) for creati
 
 ### Prerequisites
 
-- You need Docker, docker-compose, and nginx installed on a machine with at least 8GB RAM and 50GB of disk. Though it is not necessary, ideally, the computer has >8 CPU cores, >96GB RAM, and >4TB disk space, and the disk space should be fast (Thunderbolt if NAS used). Check the speed of your disks and [ensure a write speed >1 GB/s](https://github.com/nickmorales/imagebreed_dockerfile/wiki/Check-Disk-Speed).
+- You need Docker, docker-compose, and nginx installed on a machine with at least 8GB RAM and 50GB of disk. Though it is not necessary, ideally, the computer has >8 CPU cores, >96GB RAM, and >4TB disk space, and the disk space should be fast (Thunderbolt if NAS used).
+
+- Check the speed of your disks and [ensure a write speed >1 GB/s](https://github.com/nickmorales/imagebreed_dockerfile/wiki/Check-Disk-Speed).
 
 ## Start the Service:
 
@@ -34,9 +36,9 @@ Now integrated with [OpenDroneMap](https://www.opendronemap.org/odm/) for creati
 
 ### ImageBreed Configuration
 
-- TO BEGIN you don't need to change anything, but in actual production setting you will want to write an `sgn_local.conf` file specific to your service. A [template](./development/sgn_local_docker.conf) is provided. Your personal `sgn_local.conf` can be mounted in the `docker-compose.yml`, where a commented-out example is given.
-
 - IMPORTANT: to maintain persistent data directories mounted, use the bind mounts via the `docker-compose.yml` and ensure the directories exist on your machine with the [proper permissions](https://github.com/nickmorales/imagebreed_dockerfile/wiki/File-Permissions). Most critically, create the `${HOME}/archive`, `${HOME}/images`, `${HOME}/pgdata` directories on your host machine! DO NOT alter the target, only alter the source to match your host configuration.
+
+- TO BEGIN you don't need to change anything, but in actual production setting you will want to write an `sgn_local.conf` file specific to your service. A [template](./development/sgn_local_docker.conf) is provided. Your personal `sgn_local.conf` can be mounted in the `docker-compose.yml`, where a commented-out example is given.
 
 ## Helpful Commands:
 
