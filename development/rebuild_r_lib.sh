@@ -40,14 +40,19 @@ R -e "install.packages('ggfortify', dependencies=TRUE, repos='http://cran.rstudi
 R -e "install.packages('cluster', dependencies=TRUE, repos='http://cran.rstudio.com/')"
 R -e "install.packages('rlang', dependencies=TRUE, repos='http://cran.rstudio.com/')"
 R -e "install.packages('BGLR', dependencies=TRUE, repos='http://cran.rstudio.com/')"
-R -e "install.packages('sommer', dependencies=TRUE, repos='http://cran.rstudio.com/')"
+
+R -e 'library("devtools");install_version("sommer", version = "4.1.3", repos = "http://cran.us.r-project.org");'
+#R -e "install.packages('sommer', dependencies=TRUE, repos='http://cran.rstudio.com/')"
+
 R -e "install.packages('ggthemes', dependencies=TRUE, repos='http://cran.rstudio.com/')"
 R -e "install.packages('GGally', dependencies=TRUE, repos='http://cran.rstudio.com/')"
 R -e "install.packages('gridExtra', dependencies=TRUE, repos='http://cran.rstudio.com/')"
 R -e "install.packages('tidyverse', dependencies=TRUE, repos='http://cran.rstudio.com/')"
 R -e "install.packages('blocksdesign', dependencies=TRUE, repos='http://cran.rstudio.com/')"
+
 R -e "install.packages('waves', dependencies=TRUE, repos='http://cran.rstudio.com/')"
 #R -e 'library("devtools");install_github("GoreLab/waves")'
+
 R -e 'BiocManager::install();BiocManager::install(c("gdsfmt", "SNPRelate"))'
 R -e 'library("devtools");install_github("cran/R.methodsS3");install_github("solgenomics/rPackages/genoDataFilter");install_github("solgenomics/rPackages/phenoAnalysis");install_github("reyzaguirre/st4gi")'
 #R -e "install.packages('/opt/vsn/asreml/4.x.0.b/asreml_Ubuntu-18_4.1.0.126.tar.gz', repos=NULL)"
