@@ -129,11 +129,11 @@ RUN aptitude install -y python3-virtualenv \
 COPY tools/remlf90/* /usr/local/bin/
 
 # INSTALL ASREML
-# RUN mkdir -p /opt/vsn/asreml/4.x.0.b
-# COPY tools/asreml /opt/vsn/asreml/4.x.0.b/
-# RUN ln -s /opt/vsn/asreml/4.x.0.b /opt/vsn/asreml/latest \
-#    && ln -s /opt/vsn/asreml/latest/bin/asreml.sh /bin/asreml \
-#    && ln -s /opt/vsn/asreml/latest/bin/asreml_select.sh /bin/asreml_select
+RUN mkdir -p /opt/vsn/asreml/4.x.0.b
+COPY tools/asreml /opt/vsn/asreml/4.x.0.b/
+RUN ln -s /opt/vsn/asreml/4.x.0.b /opt/vsn/asreml/latest \
+    && ln -s /opt/vsn/asreml/latest/bin/asreml.sh /bin/asreml \
+    && ln -s /opt/vsn/asreml/latest/bin/asreml_select.sh /bin/asreml_select
 
 # Copy some tools that don't have a Debian package
 COPY tools/gcta/gcta64  /usr/local/bin/
