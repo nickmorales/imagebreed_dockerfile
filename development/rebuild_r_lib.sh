@@ -49,6 +49,7 @@ R -e "install.packages('GGally', dependencies=TRUE, repos='http://cran.rstudio.c
 R -e "install.packages('gridExtra', dependencies=TRUE, repos='http://cran.rstudio.com/')"
 R -e "install.packages('tidyverse', dependencies=TRUE, repos='http://cran.rstudio.com/')"
 R -e "install.packages('blocksdesign', dependencies=TRUE, repos='http://cran.rstudio.com/')"
+R -e "install.packages('psych', dependencies=TRUE, repos='http://cran.rstudio.com/')"
 
 R -e "install.packages('waves', dependencies=TRUE, repos='http://cran.rstudio.com/')"
 #R -e 'library("devtools");install_github("GoreLab/waves")'
