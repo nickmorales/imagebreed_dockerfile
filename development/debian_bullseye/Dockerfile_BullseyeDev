@@ -1,5 +1,7 @@
 FROM debian:bullseye
 
+# TODO: Remove d3 version commit in node js config file
+
 LABEL maintainer="nm529@cornell.edu"
 LABEL main_version="8"
 
