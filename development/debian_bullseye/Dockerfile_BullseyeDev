@@ -1,6 +1,9 @@
 FROM debian:bullseye
 
-# TODO: Remove d3 version commit in node js config file
+# TODO: Remove d3 version commit in node js config file. In package.json "d3": "^7.3.0"
+# TODO: Change spl2d to spl2da for sommer
+# TODO: Change waves NIRS interface
+# TODO: in slurm conf add SelectType=select/cons_res, SelectTypeParameters=CR_CORE, and Remove the option FastSchedule=1
 
 LABEL maintainer="nm529@cornell.edu"
 LABEL main_version="8"
