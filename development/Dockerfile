@@ -1,7 +1,7 @@
-FROM debian:buster
+FROM debian:bullseye
 
 LABEL maintainer="nm529@cornell.edu"
-LABEL main_version="8"
+LABEL main_version="9"
 
 ENV CPANMIRROR=http://cpan.cpantesters.org
 ENV TZ UTC
@@ -25,7 +25,8 @@ RUN mkdir -p /home/production/public/sgn_static_content \
     && chown -R www-data /home/production/cache \
     && mkdir /etc/starmachine \
     && mkdir /etc/postfix \
-    && mkdir /var/log/sgn
+    && mkdir /var/log/sgn \
+    && touch /home/production/archive/image_analysis.log
 
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
     && apt-get update -y --allow-unauthenticated \
@@ -40,15 +41,15 @@ RUN aptitude install -y libterm-readline-zoid-perl nginx starman emacs gedit vim
 
 # Required for R-package spdep, dependencies of agricolae
 # Java for Tassel
-RUN aptitude install libgdal-dev libproj-dev libgeos-dev libudunits2-dev dirmngr software-properties-common libgfortran-8-dev libicu-dev libgit2-dev -y \
+RUN aptitude install libgdal-dev libproj-dev libgeos-dev libudunits2-dev dirmngr software-properties-common libgfortran-10-dev libicu-dev libgit2-dev -y \
     && aptitude install default-jre default-jdk -y
 
-# Postgres 12
+# Postgres 14
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
     && echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list \
     && aptitude update -y \
     && apt-get upgrade -y \
-    && aptitude -y install postgresql-12 postgresql-client-12
+    && aptitude -y install postgresql-14 postgresql-client-14
 
 RUN curl -L https://cpanmin.us | perl - --sudo App::cpanminus
 
@@ -57,9 +58,9 @@ RUN chmod 777 /var/spool/ \
     && chown slurm:slurm /var/spool/slurmstate/ \
     && ln -s /var/lib/slurm-llnl /var/lib/slurm
 
-# R 3.6.3 -- keyservers: keys.gnupg.net, hkp://keyserver.ubuntu.com:80, keyserver.ubuntu.com
+# R 4.2.0 -- keyservers: keys.gnupg.net, hkp://keyserver.ubuntu.com:80, keyserver.ubuntu.com
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-key '95C0FAF38DB3CCAD0C080A7BDC78B2DDEABC47B7' \
-    && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/debian buster-cran35/' \
+    && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/debian bullseye-cran40/' \
     && aptitude update -y \
     && aptitude install r-base r-base-dev libopenblas-base -y
 
@@ -70,8 +71,6 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-key '95C0FAF38DB3CCAD0C0
 # postgres driver DBD::Pg needs this: libpq-dev
 # MooseX::Runnable Perl module needs this: libmoosex-runnable-perl
 RUN aptitude install -y libexpat1-dev libcatalyst-controller-html-formfu-perl libcairo2-dev libgd-dev libpq-dev libmoosex-runnable-perl libgdbm6 libgdm-dev
-
-RUN aptitude install nodejs npm -y
 
 # INSTALL OPENCV IMAGING LIBRARY
 RUN aptitude install -y python3-dev python3-pip python3-numpy
@@ -85,7 +84,6 @@ RUN aptitude install -y python3-virtualenv \
     && pip3 install imutils matplotlib pillow statistics PyExifTool pytz pysolar scikit-image scikit-learn packaging pyzbar pandas tensorflow numpy rasterio \
     && pip3 install opencv-python \
     && pip3 install -U keras-tuner \
-    && pip3 install setuptools==57.5.0 \
     && pip3 install GDAL==$(gdal-config --version) --global-option=build_ext --global-option="-I/usr/include/gdal" \
     && pip3 install open3d
 
@@ -148,6 +146,9 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
     && aptitude update \
     && aptitude install docker-ce -y
 
+RUN aptitude install nodejs npm -y
+#Specific version: npm install -g n \ && n 10.24.1
+
 # Copy static_content for example drone imagery (AlfalfaExample35MeterMicasenseAerialDroneFlightRawCaptures.zip and ExampleColorAerialDroneFlightRawCaptures.zip not included in Git repo)
 ADD public_static_content /home/production/public/static_content
 
@@ -159,7 +160,7 @@ ADD repos_dev /home/production/cxgn/
 #    && g++ /home/production/cxgn/DroneImageScripts/cpp/stitching_single.cpp -o /usr/bin/stitching_single `pkg-config opencv4 --cflags --libs`
 
 COPY sgn_local_docker.conf /home/production/cxgn/sgn/sgn_local.conf
-COPY slurm.conf /etc/slurm-llnl/slurm.conf
+COPY slurm.conf /etc/slurm/slurm.conf
 COPY sgn_local_docker.conf /home/production/cxgn/sgn/
 COPY starmachine.conf /etc/starmachine/
 
@@ -171,9 +172,6 @@ ENV HOME=/home/production
 ENV PGPASSFILE=/home/production/.pgpass
 RUN echo "R_LIBS_USER=/home/production/cxgn/R_libs" >> /etc/R/Renviron
 ENV R_LIBS_USER=/home/production/cxgn/R_libs
-
-RUN bash /home/production/cxgn/sgn/js/install_node.sh \
-    && apt -y autoremove
 
 COPY entrypoint.sh /entrypoint.sh
 RUN ln -s /home/production/cxgn/starmachine/bin/starmachine_init.d /etc/init.d/sgn

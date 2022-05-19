@@ -1,4 +1,4 @@
-# ImageBreed v8.9 Now Released
+# ImageBreed v9.0 Now Released
 
 Launch your own instance of [ImageBreed](https://imagebreed.org) to manage your plant breeding field experiments, genotyping, aerial image phenotyping, and high-dimensional phenotyping (NIRS, transcriptomics, metabolomics)!
 
@@ -82,9 +82,9 @@ Now integrated with [OpenDroneMap](https://www.opendronemap.org/odm/) for creati
 
 ## Using a Local PostgreSQL Database:
 
-- The provided `docker-compose.yml` will launch a `breedbase_web` and `breedbase_db` container. If you prefer to install PostgreSQL on your host machine and avoid using the `breedbase_db` Docker, you can comment out the associated breedbase_db lines in the `docker-compose.yml`. This requires adjusting your `sgn_local.conf` to point to your host database, and adjusting your `postgresql.conf` and `pg_hba.conf` configuration to work in this network configuration. You can load SQL from [SGN](https://github.com/nickmorales/imagebreed/blob/master/t/data/fixture/empty_fixture.sql) as a starting point for your host database.
+- The provided `docker-compose.yml` will launch a `breedbase_web` and `breedbase_db` container. If you prefer to install PostgreSQL on your host machine and avoid using the `breedbase_db` Docker, you can comment out the associated breedbase_db lines in the `docker-compose.yml`. This requires adjusting your `sgn_local.conf` to point to your host database, and adjusting your `postgresql.conf` and `pg_hba.conf` configuration to work in this network configuration. You can load SQL from [SGN](https://github.com/nickmorales/imagebreed/blob/master/t/data/fixture/empty_fixture.sql) as a starting point for your host database. Please ensure that the `web_usr` user exists in PostgreSQL and has the correct access to your database as is done [here](https://github.com/nickmorales/postgres_dockerfile/blob/master/01_init-user-db_01.sh).
 
-- If you choose to not use the database Docker, please use PostgreSQL version 12.
+- If you choose to not use the database Docker, please use PostgreSQL version 14.
 
 ## Enabling OpenDroneMap Orthophotomosaic Stitching
 
@@ -104,6 +104,6 @@ Alternatively, the docker image can be built from scratch. This is recommended i
 
 - Chage directory into the directory containing the `Dockerfile` and run the `prepare.sh` script. This will clone all the git repos that are needed for the build into a directory called `repos/`. You can then checkout particular branches or tags in the repo before the build.
 
-- Build the images on your host with `docker build -t breedbase_image .`
+- Build the images on your host with `docker build -t imagebreed_image .`
 
 ### Please [support](https://patreon.com/nmorales) or [Buy ImageBreed a Coffee](https://www.buymeacoffee.com/imagebreed) if you find this open-source software useful!

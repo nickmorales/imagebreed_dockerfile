@@ -29,8 +29,8 @@ git clone https://github.com/solgenomics/Tea.git repos/Tea
 git clone https://bitbucket.org/tasseladmin/tassel-5-standalone.git repos/tassel-5-standalone
 
 # local libs
-git clone --branch topic/debian_buster --depth 1 https://github.com/solgenomics/perl-local-lib repos/local-lib
-git clone --branch topic/debian_buster_R3.6.3_wASREMLR --depth 1 https://github.com/solgenomics/R_libs repos/R_libs
+git clone --branch topic/debian_bullseye --depth 1 https://github.com/solgenomics/perl-local-lib repos/local-lib
+git clone --branch topic/debian_bullseye_R4.2.0_wASREMLR --depth 1 https://github.com/solgenomics/R_libs repos/R_libs
 git clone https://github.com/solgenomics/python_virtual_environment repos/python_virtual_environment
 
 # OpenCV
