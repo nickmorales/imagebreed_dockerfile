@@ -50,5 +50,5 @@ R -e "install.packages('psych', dependencies=TRUE, repos='http://cran.rstudio.co
 R -e "install.packages('waves', dependencies=TRUE, repos='http://cran.rstudio.com/')"
 R -e 'BiocManager::install();BiocManager::install(c("gdsfmt", "SNPRelate"))'
 R -e 'library("devtools");install_github("cran/R.methodsS3");install_github("solgenomics/rPackages/genoDataFilter");install_github("solgenomics/rPackages/phenoAnalysis");install_github("reyzaguirre/st4gi")'
-#R -e "install.packages('/opt/vsn/asreml/4.x.0.b/asreml_Ubuntu-18_4.1.0.126.tar.gz', repos=NULL)"
+#R -e "install.packages('/opt/vsn/asreml/4.x.0.b/asreml-4.1.0.176-Ubuntu-18-R4.2.tar.gz', repos=NULL)"
 #R -e "install.packages('/opt/vsn/asreml/4.x.0.b/ASRgenomics_1.0.0_R_x86_64-pc-linux-gnu.tar.gz', repos=NULL)"
