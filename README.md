@@ -1,4 +1,4 @@
-# ImageBreed v9.0 Now Released
+# ImageBreed v9.1 Now Released
 
 Launch your own instance of [ImageBreed](https://imagebreed.org) to manage your plant breeding field experiments, genotyping, aerial image phenotyping, and high-dimensional phenotyping (NIRS, transcriptomics, metabolomics)!
 
@@ -79,6 +79,8 @@ Now integrated with [OpenDroneMap](https://www.opendronemap.org/odm/) for creati
 - Beginning with the v7.0 release of this Docker, ontology updates can automatically be run on startup. In the `docker-compose.yml` make sure to set the appropriate `RUN_DB_ONTOLOGY_XXX_UPDATES=TRUE` and provide the database parameters as is done in the provided example. Beginning with v4.0, database patches can automatically be run on startup. In the `docker-compose.yml` make sure to set `RUN_DB_PATCHES=TRUE` and provide the database parameters. Note, setting either of these keys to TRUE will cause the service to wait 1 minute, so to save time this should be set to FALSE when an update in versions is not underway.
 
 - If you need to manually run database patches or load new ontologies, please view [the database patch wiki](https://github.com/nickmorales/imagebreed_dockerfile/wiki/Database-Patches) and [the ontology update wiki](https://github.com/nickmorales/imagebreed_dockerfile/wiki/Ontology-Updates).
+
+- Very occasionally the PostgreSQL version of the database will be upgraded (e.g PostgreSQL 12 to 14). Currently this upgrade is not automated and requires to reload your database SQL (e.g. `pg_dump` and then reload using `psql`).
 
 ## Using a Local PostgreSQL Database:
 
