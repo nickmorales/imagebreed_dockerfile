@@ -17,12 +17,12 @@ services:
     #  - RUN_DB_ONTOLOGY_ISOL_UPDATES=TRUE
     #  - RUN_DB_ONTOLOGY_G2F_UPDATES=TRUE
     #  - RUN_DB_ONTOLOGY_ALF_UPDATES=TRUE
-      - RUN_DB_PATCHES=TRUE
-      - DATABASE_HOST=breedbase_db
-      - DATABASE_NAME=empty_fixture
-      - DATABASE_USER=postgres
-      - DATABASE_PASSWORD=postgres
-      - DATABASE_OPERATOR=janedoe
+    #  - RUN_DB_PATCHES=TRUE
+    #  - DATABASE_HOST=breedbase_db
+    #  - DATABASE_NAME=empty_fixture
+    #  - DATABASE_USER=postgres
+    #  - DATABASE_PASSWORD=postgres
+    #  - DATABASE_OPERATOR=janedoe
     #volumes:
     #  - type: bind
     #    source: ./development/sgn_local_docker.conf
