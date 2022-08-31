@@ -6,7 +6,7 @@ sed -i s/localhost/$HOSTNAME/g /etc/slurm/slurm.conf
 /etc/init.d/slurmd start
 /etc/init.d/postgresql start
 
-if [[ "$RUN_DB_PATCHES" == "TRUE" || "$RUN_DB_ONTOLOGY_UPDATES" == "TRUE" ]];
+if [[ "$RUN_DB_PATCHES" == "TRUE" || "$RUN_DB_ONTOLOGY_SGNSTAT_UPDATES" == "TRUE" || "$RUN_DB_ONTOLOGY_TIME_UPDATES" == "TRUE" || "$RUN_DB_ONTOLOGY_UO_UPDATES" == "TRUE" || "$RUN_DB_ONTOLOGY_ISOL_UPDATES" == "TRUE" || "$RUN_DB_ONTOLOGY_G2F_UPDATES" == "TRUE" || "$RUN_DB_ONTOLOGY_ALF_UPDATES" == "TRUE" ]];
 then
     sleep 1m
 
