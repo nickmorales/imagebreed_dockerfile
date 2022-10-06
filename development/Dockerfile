@@ -149,7 +149,7 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
 RUN aptitude install nodejs npm -y
 #Specific version: npm install -g n \ && n 10.24.1
 
-# Copy static_content for example drone imagery (AlfalfaExample35MeterMicasenseAerialDroneFlightRawCaptures.zip and ExampleColorAerialDroneFlightRawCaptures.zip not included in Git repo)
+# Copy static_content for example drone imagery (AlfalfaExample35MeterMicasenseAerialDroneFlightRawCaptures.zip, ExampleColorAerialDroneFlightRawCaptures.zip, AgisoftMicasense10ChannelGrapesOrthomosaic.tif, RiceExampleRGBandDSMOrthophotosGeoTIFFs.zip not included in Git repo)
 ADD public_static_content /home/production/public/static_content
 
 # Copy code repos. Run the prepare.pl script to clone them before the build

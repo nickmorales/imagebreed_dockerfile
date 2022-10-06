@@ -1,4 +1,4 @@
-# ImageBreed v9.6 Now Released
+# ImageBreed v9.7 Now Released
 
 Launch your own instance of [ImageBreed](https://imagebreed.org) to manage your plant breeding field experiments, genotyping, aerial image phenotyping, and high-dimensional phenotyping (NIRS, transcriptomics, metabolomics)!
 

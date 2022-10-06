@@ -65,3 +65,4 @@ git clone https://github.com/solgenomics/gorelabbase.git repos/gorelabbbase
 wget -P public_static_content/imagebreed https://imagebreed.org/static_content/imagebreed/AlfalfaExample35MeterMicasenseAerialDroneFlightRawCaptures.zip
 wget -P public_static_content/imagebreed https://imagebreed.org/static_content/imagebreed/ExampleColorAerialDroneFlightRawCaptures.zip
 wget -P public_static_content/imagebreed https://imagebreed.org/static_content/imagebreed/RiceExampleRGBandDSMOrthophotosGeoTIFFs.zip
+wget -P public_static_content/imagebreed https://imagebreed.org/static_content/imagebreed/AgisoftMicasense10ChannelGrapesOrthomosaic.tif
