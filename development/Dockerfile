@@ -37,7 +37,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 COPY postfix.main.cf /etc/postfix/main.cf
 
 RUN apt-get install -y aptitude
-RUN aptitude install -y libterm-readline-zoid-perl nginx starman emacs gedit vim less sudo htop git dkms perl-doc ack-grep make xutils-dev nfs-common lynx xvfb ncbi-blast+ libmunge-dev libmunge2 munge slurm-wlm slurmctld slurmd libslurm-perl libssl-dev graphviz lsof imagemagick mrbayes muscle bowtie bowtie2 postfix mailutils libcupsimage2 libglib2.0-dev libglib2.0-bin screen apt-transport-https wget libnlopt-dev
+RUN aptitude install -y libterm-readline-zoid-perl nginx starman emacs gedit vim less sudo htop git dkms perl-doc ack-grep gcc g++ make xutils-dev nfs-common lynx xvfb ncbi-blast+ libmunge-dev libmunge2 munge slurm-wlm slurmctld slurmd libslurm-perl libssl-dev graphviz lsof imagemagick mrbayes muscle bowtie bowtie2 postfix mailutils libcupsimage2 libglib2.0-dev libglib2.0-bin screen apt-transport-https wget libnlopt-dev
 
 # Required for R-package spdep, dependencies of agricolae
 # Java for Tassel
@@ -83,6 +83,7 @@ RUN aptitude install -y python3-virtualenv \
     && /home/production/cv/bin/python3 -m pip install --upgrade pip \
     && pip3 install imutils matplotlib pillow statistics PyExifTool pytz pysolar scikit-image scikit-learn packaging pyzbar pandas tensorflow numpy rasterio \
     && pip3 install opencv-python \
+    && pip3 install torch \
     && pip3 install -U keras-tuner \
     && pip3 install GDAL==$(gdal-config --version) --global-option=build_ext --global-option="-I/usr/include/gdal" \
     && pip3 install open3d
@@ -146,7 +147,8 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
     && aptitude update \
     && aptitude install docker-ce -y
 
-RUN aptitude install nodejs npm -y
+RUN curl -sL https://deb.nodesource.com/setup_16.x | sudo bash - \
+    && aptitude install -y nodejs
 #Specific version: npm install -g n \ && n 10.24.1
 
 # Copy static_content for example drone imagery (AlfalfaExample35MeterMicasenseAerialDroneFlightRawCaptures.zip, ExampleColorAerialDroneFlightRawCaptures.zip, AgisoftMicasense10ChannelGrapesOrthomosaic.tif, RiceExampleRGBandDSMOrthophotosGeoTIFFs.zip not included in Git repo)
